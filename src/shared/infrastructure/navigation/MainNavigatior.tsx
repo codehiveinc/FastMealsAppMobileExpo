@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import GetStartedScreen from "../screens/GetStartedScreen";
-import RootStackParamList from "../types/RootStackParamList";
+import RootStackParamList from "../ui/types/RootStackParamList";
 import AuthScreen from "@/auth/infrastructure/ui/screens/AuthScreen";
+import GetStartedScreen from "@/home/infrastructure/ui/screens/GetStartedScreen";
+import HomeTabScreen from "@/home/infrastructure/ui/screens/HomeTabScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -15,6 +16,7 @@ const MainNavigator = () => {
       >
         <Stack.Screen name="GetStartedScreen" component={GetStartedScreen} />
         <Stack.Screen name="AuthScreen" component={AuthScreen} />
+        <Stack.Screen name="HomeTabScreen" component={HomeTabScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

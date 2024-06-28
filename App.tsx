@@ -1,4 +1,4 @@
-import MainNavigator from "@/shared/infrastructure/ui/navigation/MainNavigatior";
+import MainNavigator from "@/shared/infrastructure/navigation/MainNavigatior";
 
 const App = () => {
   return <MainNavigator />;

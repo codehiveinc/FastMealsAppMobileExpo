@@ -1,11 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Avatars from "@assets/images/avatars.png";
-import GetStartedScreenRouteProps from "../types/SharedScreensRouteProps";
+import { GetStartedScreenRouteProps } from "../types/HomeScreensRouteProps";
 
 const GetStartedScreen = ({ navigation }: GetStartedScreenRouteProps) => {
   const handlePress = () => {
-    navigation.navigate("AuthScreen");
+    navigation.navigate("HomeTabScreen");
   };
 
   return (
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   headerMessage: {
     fontSize: 40,
     fontWeight: "bold",
+    fontFamily: "Poppins-Regular",
   },
   button: {
     backgroundColor: "#FFFFFF",
