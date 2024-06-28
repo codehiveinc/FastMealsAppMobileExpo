@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer, RouteProp } from '@react-navigation/native';
+
 
 const AuthScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function LoginScreen(){
-    
-  }
-
-  return (
+  const LoginScreen: React.FC = () =>(
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.iconWrapper}>
@@ -50,6 +50,89 @@ const AuthScreen: React.FC = () => {
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
     </View>
+  )
+
+  const RegisterScreen: React.FC = () =>(
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.iconWrapper}>
+          <Text style={styles.icon}></Text>
+        </View>
+        <Text style={styles.welcomeText}>Bienvenido de vuelta</Text>
+        <View style={styles.tabContainer}>
+          <Text style={[styles.tab, styles.activeTab]}>Inicia Sesion</Text>
+          <Text style={styles.tab}>Registrate</Text>
+        </View>
+      </View>
+      <Text style={styles.adress}>Email address</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Dosamarvis@gmail.com"
+        placeholderTextColor="#000000"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <Text style={styles.adress}>Nombre</Text>
+      <Text style={styles.adress}>Password</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="* * * * * * * * "
+        placeholderTextColor="#000000"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <View style={styles.forgotContent}>
+        <TouchableOpacity>
+        <Text style={styles.forgotPassword}>Forgot passcode?</Text>
+      </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.loginButton}>
+        <Text style={styles.loginButtonText}>Login</Text>
+      </TouchableOpacity>
+    </View>
+  )
+
+  type tabParamList = {
+    login: undefined;
+    register: undefined;
+  };
+  
+  type ScreenOptionsProps = {
+    route: RouteProp<tabParamList, keyof tabParamList>;
+  }
+  const Tab = createBottomTabNavigator<tabParamList>();
+
+
+
+  return (
+  
+      <Tab.Navigator
+        screenOptions={({ route }: ScreenOptionsProps) => ({
+          tabBarIcon: ({ focused, color, size }: { focused: boolean; color: string; size: number }) => {
+            let iconName = '';
+            
+            if (route.name === 'login') {
+              iconName = focused
+                ? 'ios-information-circle'
+                : 'ios-information-circle-outline';
+            } else if (route.name === 'register') {
+              iconName = focused ? 'ios-list-box' : 'ios-list';
+            }
+
+            return <Ionicons size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+      >
+        <Tab.Screen name="login" component={LoginScreen} />
+        <Tab.Screen name="register" component={RegisterScreen} />
+      </Tab.Navigator>
+    
   );
 };
 
