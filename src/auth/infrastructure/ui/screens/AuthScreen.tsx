@@ -207,6 +207,7 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
         </KeyboardAvoidingView>
       )}
     </SafeAreaView>
+
   );
 };
 const styles = StyleSheet.create({
