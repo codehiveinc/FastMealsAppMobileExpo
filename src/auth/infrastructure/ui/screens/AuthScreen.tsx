@@ -49,6 +49,7 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <View style={styles.header}>
         <View style={styles.iconWrapper}>
           <Text style={styles.icon}></Text>
@@ -222,9 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 120,
     borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-
-          
+    borderBottomRightRadius: 30,        
     shadowColor: "#000",
     width: "100%",
   },
@@ -266,7 +265,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     borderBottomColor: "#0C9488",
     marginLeft: 60,
-
   },
   input: {
     width: 314,
@@ -283,7 +281,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontWeight: "bold",
     fontSize: 17,
-
   },
   loginButton: {
     width: 314,
@@ -320,3 +317,4 @@ const styles = StyleSheet.create({
   },
 });
 export default AuthScreen;
+
