@@ -6,10 +6,37 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, RouteProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+interface loginFormData {
+  email: string;
+  password: string;
+}
 
-const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+interface registerFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phone: string;
+}
+const AuthScreen = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [loginFormData, setLoginFomrData] = useState<loginFormData>({ email: '', password: '' });
+  const [registerFormData, setRegisterFormData] = useState<registerFormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phone: '',
+  });
+  
+  
+
+  const handleTabPress = (index:number) => {
+    setActiveTab(index);
+  };
+
+   
+  
 
   return (
     <View style={styles.container}>
@@ -19,21 +46,23 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         </View>
         <Text style={styles.welcomeText}>Bienvenido de vuelta</Text>
         <View style={styles.tabContainer}>
-          <TouchableOpacity style={[styles.tab, styles.activeTab]}>
-            <Text style={styles.tabTex}>Inicia Sesion</Text>
+        <TouchableOpacity onPress={() => handleTabPress(0)}>
+            <Text style={[styles.tab, activeTab === 0 && styles.activeTab]}>Inicia Sesión</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.tab}>Registrate</Text>
+          <TouchableOpacity onPress={() => handleTabPress(1)}>
+            <Text style={[styles.tab, activeTab === 1 && styles.activeTab]}>Regístrate</Text>
           </TouchableOpacity>
         </View>
-      </View>
+        </View>
+        {activeTab === 0 && (
+          <View>
       <Text style={styles.adress}>Email address</Text>
       <TextInput
         style={styles.input}
         placeholder="Dosamarvis@gmail.com"
         placeholderTextColor="#000000"
-        value={email}
-        onChangeText={setEmail}
+        value={loginFormData.email}
+        onChange={(e) => setLoginFomrData({ ...loginFormData, email: e.nativeEvent.text })}
         keyboardType="email-address"
         autoCapitalize="none"
       />
@@ -42,8 +71,8 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="* * * * * * * * "
         placeholderTextColor="#000000"
-        value={password}
-        onChangeText={setPassword}
+        value={loginFormData.password}
+        onChange={(e) => setLoginFomrData({ ...loginFormData, password: e.nativeEvent.text })}
         secureTextEntry
       />
       <View style={styles.forgotContent}>
@@ -54,34 +83,10 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       <TouchableOpacity style={styles.loginButton}>
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-    </View>
-  );
-};
-
-const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.iconWrapper}>
-          <Text style={styles.icon}></Text>
-        </View>
-        <Text style={styles.welcomeText}>Bienvenido de vuelta</Text>
-        <View style={styles.tabContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.tab}>Inicia Sesion</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.tab, styles.activeTab]}>
-            <Text style={[styles.tabTex]}>Registrate</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    <KeyboardAvoidingView style={{ flex: 1,width:'100%' }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          </View>
+        )}
+        {activeTab === 1 && (
+    <KeyboardAvoidingView style={{ flex: 1,width:'100%', backgroundColor:'Red'}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
     <ScrollView >
     <View style={styles.ScrollInput}>
     <Text style={styles.adress}>First name</Text>
@@ -89,8 +94,8 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="Name"
         placeholderTextColor="#000000"
-        value={name}
-        onChangeText={setName}
+        value={registerFormData.firstName}
+        onChange={(e) => setRegisterFormData({ ...registerFormData, firstName: e.nativeEvent.text })}
         keyboardType="default"
         autoCapitalize="none"
       />
@@ -99,8 +104,8 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="Last name"
         placeholderTextColor="#000000"
-        value={lastName}
-        onChangeText={setLastName}
+        value={registerFormData.lastName}
+        onChange={(e) => setRegisterFormData({ ...registerFormData, lastName: e.nativeEvent.text })}
         keyboardType="default"
         autoCapitalize="none"
       />
@@ -109,8 +114,8 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="Dosamarvis@gmail.com"
         placeholderTextColor="#000000"
-        value={email}
-        onChangeText={setEmail}
+        value={registerFormData.email}
+        onChange={(e) => setRegisterFormData({ ...registerFormData, email: e.nativeEvent.text })}
         keyboardType="email-address"
         autoCapitalize="none"
       />
@@ -119,8 +124,8 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="* * * * * * * * "
         placeholderTextColor="#000000"
-        value={password}
-        onChangeText={setPassword}
+        value={registerFormData.password}
+        onChange={(e) => setRegisterFormData({ ...registerFormData, password: e.nativeEvent.text })}
         secureTextEntry
       />
       <Text style={styles.adress}>Phone</Text>
@@ -128,8 +133,8 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         style={styles.input}
         placeholder="xxx-xxxx-xxxx"
         placeholderTextColor="#000000"
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
+        value={registerFormData.phone}
+        onChange={(e) => setRegisterFormData({ ...registerFormData, phone: e.nativeEvent.text })}
         keyboardType="number-pad"
       />
       <TouchableOpacity style={styles.loginButton}>
@@ -138,20 +143,10 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     </View>
       </ScrollView>
     </KeyboardAvoidingView>
+        )}
     </View>
   );
 };
-
-const AuthScreen: React.FC = () => {
-  return (
-    <Stack.Navigator  initialRouteName="Login" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-    </Stack.Navigator>
-  );
-};
-
-const Stack = createNativeStackNavigator();
 
 const styles = StyleSheet.create({
   container: {
@@ -203,7 +198,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 3,
-    borderBottomColor: '#0C9488',
+    borderBottomColor: 'green',
     color: 'black',
   },
   input: {
