@@ -47,6 +47,7 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
     console.log("Register");
   };
 
+
   return (
     <SafeAreaView style={styles.container}>
 
@@ -211,6 +212,7 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
 
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
