@@ -50,7 +50,6 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-
       <View style={styles.header}>
         <View style={styles.iconWrapper}>
           <Text style={styles.icon}></Text>
@@ -209,10 +208,8 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
         </KeyboardAvoidingView>
       )}
     </SafeAreaView>
-
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -277,6 +274,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontWeight: "500",
     fontSize: 17,
+
   },
   forgotPassword: {
     color: "#000E21",
@@ -319,4 +317,5 @@ const styles = StyleSheet.create({
   },
 });
 export default AuthScreen;
+
 
