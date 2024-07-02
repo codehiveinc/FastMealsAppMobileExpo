@@ -1,51 +1,44 @@
-import { StyleSheet, ScrollView, TextInput, View, Text } from "react-native";
+import { StyleSheet, ScrollView, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import RestaurantCard from "../components/RestaurantCard";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
-import { MaterialIcons } from "@expo/vector-icons";
+import { HomeScreenRouteProps } from "../types/HomeScreensRouteProps";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <AppBar leftIcon="menu" rightIcon="cart-outline" />
+      <AppBar
+        leftIcon="menu"
+        rightIcon="search"
+        onRightPress={() => navigation.navigate("SearchScreen")}
+      />
       <View style={styles.containerMessage}>
         <Text style={styles.textMessage}>
           Echa un vistazo a los establecimientos
         </Text>
       </View>
-      <View style={styles.containerSearchBox}>
-        <MaterialIcons
-          name="search"
-          size={28}
-          color="#000"
-          style={styles.icon}
-        />
-        <TextInput
-          placeholder={"Search"}
-          placeholderTextColor="#A9A9A9"
-          style={styles.input}
-        />
+      <View style={styles.scrollContainer}>
+        <ScrollView
+          contentContainerStyle={styles.cardsContainer}
+          horizontal={true}
+        >
+          <RestaurantCard
+            imageUrl="https://via.placeholder.com/350"
+            name="Restaurant 1"
+            onPressButton={() => console.log("Button pressed")}
+          />
+          <RestaurantCard
+            imageUrl="https://via.placeholder.com/350"
+            name="Restaurant 1"
+            onPressButton={() => console.log("Button pressed")}
+          />
+          <RestaurantCard
+            imageUrl="https://via.placeholder.com/350"
+            name="Restaurant 1"
+            onPressButton={() => console.log("Button pressed")}
+          />
+        </ScrollView>
       </View>
-      <ScrollView
-        contentContainerStyle={styles.cardsContainer}
-        horizontal={true}
-      >
-        <RestaurantCard
-          imageUrl="https://via.placeholder.com/350"
-          name="Restaurant 1"
-          onPressButton={() => console.log("Button pressed")}
-        />
-        <RestaurantCard
-          imageUrl="https://via.placeholder.com/350"
-          name="Restaurant 1"
-          onPressButton={() => console.log("Button pressed")}
-        />
-        <RestaurantCard
-          imageUrl="https://via.placeholder.com/350"
-          name="Restaurant 1"
-          onPressButton={() => console.log("Button pressed")}
-        />
-      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -55,6 +48,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 45,
+  },
+  scrollContainer: {
+    marginHorizontal: -45,
   },
   searchBar: {
     margin: 16,
@@ -68,7 +64,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   containerMessage: {
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 30,
   },
   textMessage: {
     fontFamily: "Poppins-Regular",

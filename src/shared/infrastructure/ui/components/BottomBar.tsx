@@ -1,7 +1,8 @@
 import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Item = {
   name: string;
@@ -15,9 +16,10 @@ interface BottomBarProps extends BottomTabBarProps {
 }
 
 const BottomBar = ({ items, navigation }: BottomBarProps) => {
+  const insets = useSafeAreaInsets();
   const [selected, setSelected] = useState(0);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       {items.map((item, index) => (
         <TouchableOpacity
           key={index}
@@ -26,7 +28,7 @@ const BottomBar = ({ items, navigation }: BottomBarProps) => {
             navigation.navigate(item.routeName);
           }}
         >
-          <MaterialCommunityIcons
+          <Ionicons
             name={item.icon}
             size={30}
             color={selected === index ? item.selectedColor : "#000"}
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     backgroundColor: "#fff",
-    paddingVertical: 30,
+    paddingTop: 18,
   },
 });
 

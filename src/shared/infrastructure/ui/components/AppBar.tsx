@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 type AppBarProps = {
   title?: string;
@@ -27,7 +27,7 @@ const AppBar = ({
       <View style={styles.leftContainer}>
         <TouchableOpacity onPress={onLeftPress}>
           {leftIcon && (
-            <MaterialCommunityIcons name={leftIcon} size={30} color={leftIconColor} />
+            <Ionicons name={leftIcon} size={28} color={leftIconColor} />
           )}
         </TouchableOpacity>
         <View style={styles.separator} />
@@ -35,7 +35,7 @@ const AppBar = ({
       </View>
       <TouchableOpacity onPress={onRightPress}>
         {rightIcon && (
-          <MaterialCommunityIcons name={rightIcon} size={30} color={rightIconColor} />
+          <Ionicons name={rightIcon} size={28} color={rightIconColor} />
         )}
       </TouchableOpacity>
     </View>
