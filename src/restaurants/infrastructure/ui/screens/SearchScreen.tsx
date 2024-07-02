@@ -133,6 +133,7 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
           placeholder="Buscar productos"
           value={search}
           onChangeText={setSearch}
+          autoFocus
         />
       </View>
       <View style={styles.contentContainer}>
