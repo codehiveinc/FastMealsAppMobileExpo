@@ -5,6 +5,7 @@ import AuthScreen from "@/auth/infrastructure/ui/screens/AuthScreen";
 import GetStartedScreen from "@/home/infrastructure/ui/screens/GetStartedScreen";
 import HomeTabScreen from "@/home/infrastructure/ui/screens/HomeTabScreen";
 import SearchScreen from "@/restaurants/infrastructure/ui/screens/SearchScreen";
+import PrivacyPolicyScreen from "@/users/infrastructure/ui/screens/PrivacyPolicyScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,6 +20,10 @@ const MainNavigator = () => {
         <Stack.Screen name="AuthScreen" component={AuthScreen} />
         <Stack.Screen name="HomeTabScreen" component={HomeTabScreen} />
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen
+          name="PrivacyPolicyScreen"
+          component={PrivacyPolicyScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
