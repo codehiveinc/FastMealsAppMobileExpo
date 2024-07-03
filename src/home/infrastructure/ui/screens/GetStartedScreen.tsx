@@ -5,7 +5,7 @@ import { GetStartedScreenRouteProps } from "../types/HomeScreensRouteProps";
 
 const GetStartedScreen = ({ navigation }: GetStartedScreenRouteProps) => {
   const handlePress = () => {
-    navigation.navigate("HomeTabScreen");
+    navigation.navigate("AuthScreen");
   };
 
   return (
