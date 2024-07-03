@@ -1,4 +1,4 @@
-import { ScrollView, Text, StyleSheet, View } from "react-native";
+import { ScrollView, Text, StyleSheet } from "react-native";
 import { PrivacyPolicyScreenRouteProps } from "../types/UsersScreensRouteProps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
@@ -11,7 +11,10 @@ const PrivacyPolicyScreen = ({ navigation }: PrivacyPolicyScreenRouteProps) => {
         onLeftPress={() => navigation.goBack()}
         title="Política de Privacidad"
       />
-      <ScrollView style={styles.privacyPolicyContainer}>
+      <ScrollView
+        style={styles.privacyPolicyContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={styles.heading}>1. Introducción</Text>
         <Text style={styles.paragraph}>
           En Fast Meals, valoramos su privacidad y estamos comprometidos a
