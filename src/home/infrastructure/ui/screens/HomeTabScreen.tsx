@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./HomeScreen";
 import AuthScreen from "@/auth/infrastructure/ui/screens/AuthScreen";
 import BottomBar from "@/shared/infrastructure/ui/components/BottomBar";
+import MyProfileScreen from "@/users/infrastructure/ui/screens/MyProfileScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ const items = [
     name: "Account",
     icon: "person-circle-outline",
     selectedColor: "#0D9488",
-    routeName: "AuthScreen",
+    routeName: "MyProfileScreen",
   },
 ];
 
@@ -35,6 +36,7 @@ const HomeTabScreen = () => {
       {/* TODO: Fix type */}
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="AuthScreen" component={AuthScreen} />
+      <Tab.Screen name="MyProfileScreen" component={MyProfileScreen} />
     </Tab.Navigator>
   );
 };

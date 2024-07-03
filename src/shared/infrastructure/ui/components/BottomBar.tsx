@@ -2,7 +2,10 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 type Item = {
   name: string;

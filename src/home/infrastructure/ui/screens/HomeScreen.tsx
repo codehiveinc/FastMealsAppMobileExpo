@@ -20,6 +20,7 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
       <View style={styles.scrollContainer}>
         <ScrollView
           contentContainerStyle={styles.cardsContainer}
+          showsHorizontalScrollIndicator={false}
           horizontal={true}
         >
           <RestaurantCard

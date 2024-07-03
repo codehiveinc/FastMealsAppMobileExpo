@@ -4,6 +4,8 @@ type RootStackParamList = {
   HomeTabScreen: undefined;
   SearchScreen: undefined;
   AuthScreen: undefined;
+  MyProfileScreen: undefined;
+  PrivacyPolicyScreen: undefined;
 };
 
 export default RootStackParamList;

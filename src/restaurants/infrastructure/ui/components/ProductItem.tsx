@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
     margin: 10,
-    width: "40%",
+    width: "35%",
     gap: 10,
   },
   image: {

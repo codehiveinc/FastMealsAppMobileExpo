@@ -133,11 +133,12 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
           placeholder="Buscar productos"
           value={search}
           onChangeText={setSearch}
+          autoFocus
         />
       </View>
       <View style={styles.contentContainer}>
         <Text style={styles.titleText}>Productos</Text>
-        <ScrollView contentContainerStyle={styles.productsContainer}>
+        <ScrollView contentContainerStyle={styles.productsContainer} showsVerticalScrollIndicator={false}>
           {filteredProductos.map((producto) => (
             <ProductItem
               key={producto.id}
@@ -187,8 +188,8 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-around",
-    paddingBottom: 20, // Ajustar según sea necesario
+    gap: 20,
+    paddingBottom: 20,
   },
 });
 
