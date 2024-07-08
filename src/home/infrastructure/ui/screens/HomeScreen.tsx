@@ -11,8 +11,7 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <AppBar
-        leftIcon="menu"
-        rightIcon="search"
+        rightIcon="search" 
         onRightPress={() => navigation.navigate("SearchScreen")}
       />
       <View style={styles.containerMessage}>
@@ -30,6 +29,7 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
             imageUrl="https://via.placeholder.com/350"
             name="Restaurant 1"
             onPressButton={() => handlePress()}
+
           />
           <RestaurantCard
             imageUrl="https://via.placeholder.com/350"
