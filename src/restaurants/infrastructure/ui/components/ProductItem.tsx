@@ -4,14 +4,14 @@ type ProductItemProps = {
   title: string;
   price: string;
   image: string;
-  onpress: () => void;
+  onPress: () => void;
 };
 
-const ProductItem = ({ title, price, image , onpress }: ProductItemProps) => {
+const ProductItem = ({ title, price, image , onPress }: ProductItemProps) => {
   return (
     
     <View style={styles.container}>
-      <TouchableOpacity onPress={onpress}>
+      <TouchableOpacity onPress={onPress}>
       <Image source={{ uri: image }} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>{price}</Text>

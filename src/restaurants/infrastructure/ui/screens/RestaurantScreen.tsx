@@ -76,7 +76,7 @@ const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
           showsVerticalScrollIndicator={false}
         >
           {filteredProductos.map((producto) => (
-            <ProductItem onpress={handlePressDetail}
+            <ProductItem onPress={handlePressDetail}
               key={producto.id}
               title={producto.title}
               price={producto.price}
