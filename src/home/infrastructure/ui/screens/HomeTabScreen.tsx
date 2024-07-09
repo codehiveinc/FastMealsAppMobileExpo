@@ -17,7 +17,7 @@ const items = [
     name: "Cart",
     icon: "cart-outline",
     selectedColor: "#0D9488",
-    routeName: "AuthScreen",
+    routeName: "OrderScreen",
   },
   {
     name: "Account",

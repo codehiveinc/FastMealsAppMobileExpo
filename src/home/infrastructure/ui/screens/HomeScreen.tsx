@@ -5,6 +5,9 @@ import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { HomeScreenRouteProps } from "../types/HomeScreensRouteProps";
 
 const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
+  const handlePress = () => {
+    navigation.navigate("RestaurantScreen");
+  };
   return (
     <SafeAreaView style={styles.container}>
       <AppBar
@@ -26,7 +29,7 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
           <RestaurantCard
             imageUrl="https://via.placeholder.com/350"
             name="Restaurant 1"
-            onPressButton={() => console.log("Button pressed")}
+            onPressButton={() => handlePress()}
           />
           <RestaurantCard
             imageUrl="https://via.placeholder.com/350"

@@ -7,7 +7,7 @@ import RootStackParamList from "@/shared/infrastructure/ui/types/RootStackParamL
 const userSections = [
   {
     title: "Ordenes",
-    // routeName: "OrdersScreen",
+    // routeName: "OrderScreen",
   },
   {
     title: "Mis restaurantes",
