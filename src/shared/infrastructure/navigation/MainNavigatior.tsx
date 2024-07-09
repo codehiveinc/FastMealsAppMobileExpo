@@ -6,8 +6,11 @@ import GetStartedScreen from "@/home/infrastructure/ui/screens/GetStartedScreen"
 import HomeTabScreen from "@/home/infrastructure/ui/screens/HomeTabScreen";
 import SearchScreen from "@/restaurants/infrastructure/ui/screens/SearchScreen";
 import PrivacyPolicyScreen from "@/users/infrastructure/ui/screens/PrivacyPolicyScreen";
-
+import RestaurantScreen from "@/restaurants/infrastructure/ui/screens/RestaurantScreen"
+import MealDetailScreen from "@/restaurants/infrastructure/ui/screens/MealDetailScreen";
+import OrderScreen from "@/orders/infrastructure/ui/Screens/OrderScreen";
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
 
 const MainNavigator = () => {
   return (
@@ -24,6 +27,9 @@ const MainNavigator = () => {
           name="PrivacyPolicyScreen"
           component={PrivacyPolicyScreen}
         />
+        <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+        <Stack.Screen name="MealDetailScreen" component={MealDetailScreen} />
+        <Stack.Screen name="OrderScreen" component={OrderScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
