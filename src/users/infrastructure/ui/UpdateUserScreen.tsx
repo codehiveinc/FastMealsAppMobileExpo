@@ -1,110 +1,70 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
-import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppBar from '@/shared/infrastructure/ui/components/AppBar';
 
-export default function UpdateMealScreen({ navigation }: { navigation: NavigationProp<any> }) {
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState<string | null>(null);
+const UpdateUserScreen = ({ navigation }: { navigation: NavigationProp<any> })=>{
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
-        }
-    };
-
+    
+    const [name, setName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [error, setError] = useState<string>('');
+    
     const handleSubmit = async () => {
-        if (!name || !price || !description || !image) {
+        if (!name || !lastName ||!phoneNumber) {
             Alert.alert('Todos los campos son obligatorios.');
             return;
-        }
-
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('price', price);
-        formData.append('description', description);
-        formData.append('image', {
-            uri: image,
-            type: 'image/jpeg',
-            name: 'product.jpg'
-        } as any);
-
-        try {
-            console.log(formData);
-            {/*const response = await fetch('url-api', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: formData,
-            });
-
-            if (response.ok) {
-                Alert.alert('Producto agregado con éxito');
-                navigation.goBack();
-            } else {
-                Alert.alert('Error al agregar el producto');
-            }*/}
-        } catch (error) {
-            Alert.alert('Error de red. Inténtalo de nuevo más tarde.');
+        }   
+    }
+    const handleChange = (text: string): void => {
+        // Permitir solo caracteres numéricos
+        const numericValue = text.replace(/[^0-9-]/g, '');
+        setPhoneNumber(numericValue);
+    
+        // Validar si es un número de teléfono o una hora válida
+        if (numericValue.length === 0) {
+          setError('Este campo no puede estar vacío.');
+        } else {
+          setError('');
         }
     };
+        
 
-    return (
+    return(
         <SafeAreaView style={styles.container}>
-            <AppBar leftIcon='chevron-back' title='Editar producto' />
+            <AppBar leftIcon='chevron-back' title='Editar mi perfil' />
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.form}>
-                    <Text style={styles.label}>Nombre del producto</Text>
+                    <Text style={styles.label}>Nombre</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Nuevo nombre"
+                        placeholder="Nombre"
                         placeholderTextColor={'#888'}
                         value={name}
                         onChangeText={setName}
                     />
 
-                    <Text style={styles.label}>Precio del producto</Text>
+                    <Text style={styles.label}>Apellidos</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="Nuevo precio"
+                        placeholder="Apellido"
                         placeholderTextColor={'#888'}
-                        keyboardType='numeric'
-                        value={price}
-                        onChangeText={setPrice}
+                        value={lastName}
+                        onChangeText={setLastName}
+                        
                     />
-
-                    <Text style={styles.label}>Descripción</Text>
+                    <Text style={styles.label}>Numero Telefonico</Text>
                     <TextInput
-                        style={[styles.input, styles.textArea, styles.inputArea]}
-                        placeholder="Nueva Descripción"
-                        multiline
-                        numberOfLines={4}
+                        style={styles.input}
+                        placeholder="Numero telefonico"
                         placeholderTextColor={'#888'}
-                        value={description}
-                        onChangeText={setDescription}
-                        textAlignVertical='top'
+                        keyboardType='default'
+                        value={phoneNumber}
+                        onChangeText={handleChange}
+                        
                     />
-
-                    <Text style={styles.label}>Imagen</Text>
-                    <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
-                        {image ? (
-                            <Image source={{ uri: image }} style={styles.image} />
-                        ) : (
-                            <Text style={styles.imageButtonText}>Agregar Imagen</Text>
-                        )}
-                    </TouchableOpacity>
-
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
                             <Text style={styles.cancelButtonText}>Cancelar</Text>
@@ -116,9 +76,8 @@ export default function UpdateMealScreen({ navigation }: { navigation: Navigatio
                 </View>
             </ScrollView>
         </SafeAreaView>
-    );
+    );    
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -207,3 +166,4 @@ const styles = StyleSheet.create({
         fontWeight: '700'
     },
 });
+export default UpdateUserScreen;

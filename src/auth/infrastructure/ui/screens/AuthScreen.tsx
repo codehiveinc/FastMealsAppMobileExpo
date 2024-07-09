@@ -35,9 +35,11 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
     password: "",
     phone: "",
   });
+  const [error, setError] = useState<string>('');
   const handleTabPress = (index: number) => {
     setActiveTab(index);
   };
+
 
   const handlePressLogin = () => {
     navigation.navigate("HomeTabScreen");
@@ -47,7 +49,18 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
     console.log("Register");
   };
 
-
+  const handleChange = (text: string): void => {
+    // Permitir solo caracteres numéricos
+    const numericValue = text.replace(/[^0-9-]/g, '');
+    setRegisterFormData({ ...registerFormData, phone: numericValue });
+  
+    // Validar si es un número de teléfono o una hora válida
+    if (numericValue.length === 0) {
+      setError('Este campo no puede estar vacío.');
+    } else {
+      setError('');
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -189,12 +202,7 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
                 placeholder="xxx-xxxx-xxxx"
                 placeholderTextColor="#A9A9A9"
                 value={registerFormData.phone}
-                onChange={(e) =>
-                  setRegisterFormData({
-                    ...registerFormData,
-                    phone: e.nativeEvent.text,
-                  })
-                }
+                onChangeText={handleChange}
                 keyboardType="number-pad"
               />
               <TouchableOpacity
