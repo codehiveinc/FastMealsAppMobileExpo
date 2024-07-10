@@ -9,6 +9,7 @@ type RootStackParamList = {
   RestaurantScreen : undefined ;
   MealDetailScreen : undefined;
   OrderScreen: undefined;
+  MyRestaurantScreen: undefined;
 };
 
 export default RootStackParamList;
