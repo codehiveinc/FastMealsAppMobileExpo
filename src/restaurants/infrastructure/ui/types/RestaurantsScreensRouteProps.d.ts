@@ -1,4 +1,3 @@
-import RootStackParamList from "@/shared/infrastructure/ui/types/RootStackParamList";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type SearchScreenRouteProps = NativeStackScreenProps<
@@ -9,9 +8,14 @@ export type SearchScreenRouteProps = NativeStackScreenProps<
 export type MealDetailScreenRouteProps = NativeStackScreenProps<
   RootStackParamList,
   "MealDetailScreen"
->;  
+>;
 
 export type RestaurantScreenRouteProps = NativeStackScreenProps<
   RootStackParamList,
   "RestaurantScreen"
+>;
+
+export type MyRestaurantsScreenRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "MyRestaurantsScreen"
 >;
