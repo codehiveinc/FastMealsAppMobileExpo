@@ -1,32 +1,27 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MyProfileScreenRouteProps } from "../types/UsersScreensRouteProps";
+import { MyRestaurantScreenRouteProps } from "../types/UsersScreensRouteProps";
+import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import RootStackParamList from "@/shared/infrastructure/ui/types/RootStackParamList";
 
 const userSections = [
   {
-    title: "Ordenes",
+    title: "Productos",
     // routeName: "OrderScreen",
   },
   {
-    title: "Mis restaurantes",
-    routeName: "MyRestaurantScreen",
+    title: "Agregar producto",
+    // routeName: "MyRestaurantsScreen",
   },
-  {
-    title: "Politica de privacidad",
-    routeName: "PrivacyPolicyScreen",
-  },
-  {
-    title: "Cerrar Sesión",
-    // routeName: "AuthScreen",
-  },
+
 ];
 
-const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
+const MyRestaurantScreen = ({ navigation }: MyRestaurantScreenRouteProps) => {
   const renderUserSections = () => {
     return userSections.map((section) => (
       <TouchableOpacity
+
         style={styles.userSectionContainer}
         onPress={() => navigation.navigate(section.routeName)}
         key={section.title}
@@ -37,15 +32,20 @@ const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
     ));
   };
   return (
+    
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text style={styles.headerText}>Mi Perfil</Text>
-      </View>
+      <AppBar
+        leftIcon="chevron-back"
+        onLeftPress={() => navigation.goBack()}
+        title="Mi Restaurante"
+      />
+    
+   
       <View style={styles.subheaderContainer}>
         <View style={styles.userInformationHeaderContainer}>
-          <Text style={styles.subheaderText}>Detalles Personales</Text>
+          <Text style={styles.subheaderText}>Detalles del restaurant</Text>
           <TouchableOpacity>
-            <Text style={styles.changeUserInformationText}>Cambiar</Text>
+            <Text style={styles.changeUserInformationText}>Editar</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.userInformationContainer}>
@@ -59,15 +59,15 @@ const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
           </View>
           <View style={styles.userInformationTextContainer}>
             <Text style={styles.userInformationTextHeader}>
-              Fernando Guerrero
+              La casa de las pizzas
             </Text>
             <Text style={styles.userInformationTextSubheader}>
-              devrrior@gmail.com
+              Direccion : Calle 123 entre 45 y 67
             </Text>
-            <Text style={styles.userInformationTextSubheader}>9613692958</Text>
+            <Text style={styles.userInformationTextSubheader}>Horario de 6 pm a 12 am</Text>
           </View>
         </View>
-      </View>
+      </View><Text style={styles.subheaderText}>Acciones</Text>
       {renderUserSections()}
     </SafeAreaView>
   );
@@ -78,14 +78,13 @@ const styles = StyleSheet.create({
     gap: 30,
     paddingHorizontal: 50,
     paddingTop: 30,
+    paddingLeft : 10,
     backgroundColor: "#F5F5F8",
     width: "100%",
     height: "100%",
-  },
-  headerText: {
-    fontSize: 34,
-    fontFamily: "Poppins-Regular",
-  },
+  },  
+
+  
   subheaderContainer: {
     gap: 5,
   },
@@ -97,10 +96,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Poppins-Regular",
     color: "#0C9488",
+    paddingBottom : 10
   },
   userInformationHeaderContainer: {
+    paddingBottom : 10,
     flexDirection: "row",
     justifyContent: "space-between",
+    
   },
   userInformationContainer: {
     paddingVertical: 20,
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
+    elevation: 5,
     shadowOpacity: 0.25,
   },
   userInformationImageContainer: {
@@ -148,8 +151,9 @@ const styles = StyleSheet.create({
       width: 0,
       height: 3,
     },
+    elevation: 5,
     shadowOpacity: 0.25,
   },
 });
 
-export default MyProfileScreen;
+export default MyRestaurantScreen;
