@@ -16,7 +16,6 @@ import CreateRestaurantScreen from "@/restaurants/infrastructure/ui/screens/Crea
 import MyRestaurantScreen from "@/users/infrastructure/ui/screens/MyRestaurantScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const MainNavigator = () => {
   return (
