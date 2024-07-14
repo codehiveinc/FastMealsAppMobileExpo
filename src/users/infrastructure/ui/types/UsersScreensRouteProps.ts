@@ -10,3 +10,8 @@ export type PrivacyPolicyScreenRouteProps = NativeStackScreenProps<
   RootStackParamList,
   "PrivacyPolicyScreen"
 >;
+
+export type MyRestaurantScreenRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "MyRestaurantScreen"
+>;
