@@ -14,6 +14,9 @@ type RootStackParamList = {
   UpdateUserScreen: undefined;
   CreateRestaurantScreen: undefined;
   MyRestaurantScreen: undefined;
+  EditMealScreen : undefined;
+  PaymentsScreen: undefined;
+  PaymentMethodScreen: undefined;
 };
 
 export default RootStackParamList;
