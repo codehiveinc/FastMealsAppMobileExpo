@@ -2,7 +2,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MyProfileScreenRouteProps } from "../types/UsersScreensRouteProps";
-import RootStackParamList from "@/shared/infrastructure/ui/types/RootStackParamList";
 
 const userSections = [
   {
@@ -11,7 +10,7 @@ const userSections = [
   },
   {
     title: "Mis restaurantes",
-    routeName: "MyRestaurantScreen",
+    routeName: "MyRestaurantsScreen",
   },
   {
     title: "Politica de privacidad",
@@ -76,7 +75,7 @@ const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
 const styles = StyleSheet.create({
   container: {
     gap: 30,
-    paddingHorizontal: 50,
+    paddingHorizontal: 40,
     paddingTop: 30,
     backgroundColor: "#F5F5F8",
     width: "100%",

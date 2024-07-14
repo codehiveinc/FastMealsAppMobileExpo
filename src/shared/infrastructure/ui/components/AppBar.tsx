@@ -27,7 +27,7 @@ const AppBar = ({
       <View style={styles.leftContainer}>
         <TouchableOpacity onPress={onLeftPress}>
           {leftIcon && (
-            <Ionicons name={leftIcon} size={28} color={leftIconColor} />
+            <Ionicons name={leftIcon} size={25} color={leftIconColor} />
           )}
         </TouchableOpacity>
         <View style={styles.separator} />
@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#ffffff",
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 25,
   },
   separator: {
     width: 15,
