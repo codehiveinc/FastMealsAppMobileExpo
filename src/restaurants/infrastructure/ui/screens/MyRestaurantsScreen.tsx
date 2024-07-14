@@ -29,57 +29,13 @@ const MyRestaurantsScreen = ({ navigation }: MyRestaurantsScreenRouteProps) => {
         style={{ overflow: "visible" }}
       >
         <View style={styles.restaurantItemContainer}>
-          <View style={styles.restaurantInfoContainer}>
-            <Image
-              style={styles.restaurantImage}
-              source={{ uri: "https://via.placeholder.com/350" }}
-            />
-            <Text style={styles.restaurantTitle}>
-              Restaurante los aguacates
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Ionicons name="chevron-forward" size={20} color="black" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.restaurantItemContainer}>
-          <View style={styles.restaurantInfoContainer}>
-            <Image
-              style={styles.restaurantImage}
-              source={{ uri: "https://via.placeholder.com/350" }}
-            />
-            <Text style={styles.restaurantTitle}>
-              Restaurante los aguacates
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Ionicons name="chevron-forward" size={20} color="black" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.restaurantItemContainer}>
-          <View style={styles.restaurantInfoContainer}>
-            <Image
-              style={styles.restaurantImage}
-              source={{ uri: "https://via.placeholder.com/350" }}
-            />
-            <Text style={styles.restaurantTitle}>
-              Restaurante los aguacates
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Ionicons name="chevron-forward" size={20} color="black" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.restaurantItemContainer}>
-          <View style={styles.restaurantInfoContainer}>
-            <Image
-              style={styles.restaurantImage}
-              source={{ uri: "https://via.placeholder.com/350" }}
-            />
-            <Text style={styles.restaurantTitle}>
-              Restaurante los aguacates
-            </Text>
-          </View>
+          <Image
+            style={styles.restaurantImage}
+            source={{ uri: "https://via.placeholder.com/350" }}
+          />
+          <Text style={styles.restaurantTitle}>
+            Restaurante los aguacates asdf dsaf
+          </Text>
           <TouchableOpacity>
             <Ionicons name="chevron-forward" size={20} color="black" />
           </TouchableOpacity>
@@ -101,6 +57,8 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   restaurantItemContainer: {
+    gap: 10,
+    width: "100%",
     paddingVertical: 20,
     paddingHorizontal: 15,
     backgroundColor: "#fff",
@@ -123,11 +81,12 @@ const styles = StyleSheet.create({
   restaurantImage: {
     borderRadius: 99,
     width: "16%",
-    height: 42,
+    aspectRatio: 1,
   },
   restaurantTitle: {
     fontFamily: "Poppins-Regular",
     fontSize: 18,
+    flex: 1,
   },
 });
 
