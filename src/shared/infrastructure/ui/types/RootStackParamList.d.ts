@@ -9,6 +9,10 @@ type RootStackParamList = {
   RestaurantScreen : undefined ;
   MealDetailScreen : undefined;
   OrderScreen: undefined;
+  UpdateMealScreen: undefined;
+  CreateMealScreen : undefined;
+  UpdateUserScreen: undefined;
+  CreateRestaurantScreen: undefined;
   MyRestaurantScreen: undefined;
 };
 

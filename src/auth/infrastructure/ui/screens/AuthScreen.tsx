@@ -35,9 +35,11 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
     password: "",
     phone: "",
   });
+  const [error, setError] = useState<string>('');
   const handleTabPress = (index: number) => {
     setActiveTab(index);
   };
+
 
   const handlePressLogin = () => {
     navigation.navigate("HomeTabScreen");
@@ -47,6 +49,18 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
     console.log("Register");
   };
 
+  const handleChange = (text: string): void => {
+    // Permitir solo caracteres numéricos
+    const numericValue = text.replace(/[^0-9-]/g, '');
+    setRegisterFormData({ ...registerFormData, phone: numericValue });
+  
+    // Validar si es un número de teléfono o una hora válida
+    if (numericValue.length === 0) {
+      setError('Este campo no puede estar vacío.');
+    } else {
+      setError('');
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -188,12 +202,7 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
                 placeholder="xxx-xxxx-xxxx"
                 placeholderTextColor="#A9A9A9"
                 value={registerFormData.phone}
-                onChange={(e) =>
-                  setRegisterFormData({
-                    ...registerFormData,
-                    phone: e.nativeEvent.text,
-                  })
-                }
+                onChangeText={handleChange}
                 keyboardType="number-pad"
               />
               <TouchableOpacity
@@ -221,19 +230,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 120,
     borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    shadowOpacity: 0.06,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowRadius: 30,
-    elevation: 5,
+    borderBottomRightRadius: 30,        
     shadowColor: "#000",
     width: "100%",
   },
   iconWrapper: {
     backgroundColor: "#fff",
+
     borderRadius: 50,
     padding: 20,
     marginBottom: 10,
@@ -279,6 +282,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontWeight: "500",
     fontSize: 17,
+
   },
   forgotPassword: {
     color: "#000E21",
@@ -321,3 +325,5 @@ const styles = StyleSheet.create({
   },
 });
 export default AuthScreen;
+
+
