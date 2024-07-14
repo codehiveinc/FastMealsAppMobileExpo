@@ -4,6 +4,9 @@ import { OrderScreenRouteProps } from '../types/OrderScreenRouteProps';
 import AppBar from '@/shared/infrastructure/ui/components/AppBar';
 
 const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
+  const handlePress = () => {
+    navigation.navigate('PaymentsScreen');
+  }
   const products = [
     { id: '1', name: 'Hamburguesa doble queso', price: '$100.00', image: 'https://example.com/hamburguesa.png' },
     { id: '2', name: 'Hamburguesa doble queso', price: '$100.00', image: 'https://example.com/hamburguesa.png' },
@@ -67,6 +70,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: "white",
+    fontWeight : "bold"
   },
   header: {
     fontSize: 20,
@@ -85,7 +89,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowOpacity: 0.1,
     shadowRadius: 8,
-    elevation: 2,
+    
   },
   productImage: {
     width: 50,
