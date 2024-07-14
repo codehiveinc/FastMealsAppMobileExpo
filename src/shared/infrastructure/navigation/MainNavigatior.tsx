@@ -10,6 +10,9 @@ import RestaurantScreen from "@/restaurants/infrastructure/ui/screens/Restaurant
 import MealDetailScreen from "@/restaurants/infrastructure/ui/screens/MealDetailScreen";
 import OrderScreen from "@/orders/infrastructure/ui/Screens/OrderScreen";
 import MyRestaurantScreen from "@/users/infrastructure/ui/screens/MyRestaurantScreen";
+import EditMealScreen from "@/users/infrastructure/ui/screens/EditMealScreen";
+import PaymentsScreen from "@/payment/infrastructure/ui/screens/PaymentsScreen";
+import PaymentMethodScreen from "@/payment/infrastructure/ui/screens/PaymentMethodScreen";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 
@@ -32,6 +35,9 @@ const MainNavigator = () => {
         <Stack.Screen name="MealDetailScreen" component={MealDetailScreen} />
         <Stack.Screen name="OrderScreen" component={OrderScreen} />
         <Stack.Screen name="MyRestaurantScreen" component={MyRestaurantScreen} />
+        <Stack.Screen name="EditMealScreen" component={EditMealScreen} />
+        <Stack.Screen name="PaymentsScreen" component={PaymentsScreen} />
+        <Stack.Screen name="PaymentMethodScreen" component={PaymentMethodScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
