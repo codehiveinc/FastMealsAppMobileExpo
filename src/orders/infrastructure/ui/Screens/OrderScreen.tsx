@@ -76,8 +76,8 @@ const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
       products.map((product) =>
         product.id === id
           ? { ...product, quantity: Math.max(0, product.quantity + change) }
-          : product
-      )
+          : product,
+      ),
     );
   };
 
@@ -88,6 +88,7 @@ const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
       price={item.price}
       imageUrl={item.image}
       quantity={item.quantity}
+      handleQuantityChange={updateQuantity}
     />
   );
 

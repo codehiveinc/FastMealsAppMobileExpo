@@ -8,11 +8,17 @@ interface ProductProps {
   price: string;
   imageUrl: string;
   quantity: number;
+  handleQuantityChange: (id: string, quantity: number) => void;
 }
 
-const ProductItem = ({ id, name, price, imageUrl, quantity }: ProductProps) => {
-  const updateQuantity = (id: string, quantity: number) => {};
-
+const ProductItem = ({
+  id,
+  name,
+  price,
+  imageUrl,
+  quantity,
+  handleQuantityChange,
+}: ProductProps) => {
   return (
     <View style={styles.productItem}>
       <Image source={{ uri: imageUrl }} style={styles.productImage} />
@@ -22,14 +28,14 @@ const ProductItem = ({ id, name, price, imageUrl, quantity }: ProductProps) => {
         <View style={styles.quantityContainer}>
           <TouchableOpacity
             style={styles.quantityButton}
-            onPress={() => updateQuantity(id, -1)}
+            onPress={() => handleQuantityChange(id, -1)}
           >
             <Text style={styles.quantityButtonText}>-</Text>
           </TouchableOpacity>
           <Text style={styles.quantityText}>{quantity}</Text>
           <TouchableOpacity
             style={styles.quantityButton}
-            onPress={() => updateQuantity(id, 1)}
+            onPress={() => handleQuantityChange(id, 1)}
           >
             <Text style={styles.quantityButtonText}>+</Text>
           </TouchableOpacity>
