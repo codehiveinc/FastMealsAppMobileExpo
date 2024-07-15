@@ -1,5 +1,4 @@
 import { StyleSheet, ScrollView, View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import RestaurantCard from "../components/RestaurantCard";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { HomeScreenRouteProps } from "../types/HomeScreensRouteProps";

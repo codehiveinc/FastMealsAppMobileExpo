@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { OrderScreenRouteProps } from "../types/OrderScreenRouteProps";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
