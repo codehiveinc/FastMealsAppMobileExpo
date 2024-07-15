@@ -1,10 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  DimensionValue,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { fonts } from "../consts/fonts";
 
 type ButtonProps = {
   text: string;
   backgroundColor: string;
   textColor: string;
+  width: DimensionValue;
   isDisabled?: boolean;
   handlePress: () => void;
 };
@@ -14,11 +20,12 @@ const Button = ({
   backgroundColor,
   textColor,
   isDisabled,
+  width,
   handlePress,
 }: ButtonProps) => {
   return (
     <TouchableOpacity
-      style={[styles.container, { backgroundColor: backgroundColor }]}
+      style={[styles.container, { backgroundColor: backgroundColor, width }]}
       disabled={isDisabled}
       onPress={() => handlePress()}
     >
@@ -33,7 +40,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 30,
     alignItems: "center",
-    width: "70%",
   },
   text: {
     fontFamily: fonts.primary,

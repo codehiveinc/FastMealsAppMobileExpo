@@ -26,7 +26,7 @@ const GetStartedScreen = ({ navigation }: GetStartedScreenRouteProps) => {
           backgroundColor={colors.white}
           textColor={colors.black}
           handlePress={handlePress}
-          isDisabled={true}
+          width={"70%"}
         />
       </View>
     </SafeAreaView>
