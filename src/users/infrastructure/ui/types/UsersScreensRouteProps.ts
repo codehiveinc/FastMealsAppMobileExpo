@@ -16,7 +16,7 @@ export type MyRestaurantScreenRouteProps = NativeStackScreenProps<
   "MyRestaurantScreen"
 >;
 
-export type EditMealScreenRouteProps = NativeStackScreenProps <
+export type EditMealScreenRouteProps = NativeStackScreenProps<
   RootStackParamList,
   "EditMealScreen"
 >;

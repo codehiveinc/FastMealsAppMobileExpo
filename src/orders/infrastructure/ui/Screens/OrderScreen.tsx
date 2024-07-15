@@ -1,99 +1,145 @@
-import React from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { OrderScreenRouteProps } from '../types/OrderScreenRouteProps';
-import AppBar from '@/shared/infrastructure/ui/components/AppBar';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { OrderScreenRouteProps } from "../types/OrderScreenRouteProps";
+import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
+import Button from "@/shared/infrastructure/ui/components/Button";
+import { colors } from "@/shared/infrastructure/ui/consts/colors";
+import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
+import ProductItem from "../components/ProductItem";
+
+interface Product {
+  id: string;
+  name: string;
+  price: string;
+  image: string;
+  quantity: number;
+}
 
 const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
   const handlePress = () => {
-    navigation.navigate('PaymentsScreen');
-  }
-  const products = [
-    { id: '1', name: 'Hamburguesa doble queso', price: '$100.00', image: 'https://example.com/hamburguesa.png' },
-    { id: '2', name: 'Hamburguesa doble queso', price: '$100.00', image: 'https://example.com/hamburguesa.png' },
-    { id: '3', name: 'Hamburguesa doble queso', price: '$100.00', image: 'https://example.com/hamburguesa.png' },
-    { id: '4', name: 'Hamburguesa doble queso', price: '$100.00', image: 'https://example.com/hamburguesa.png' },
-  ];
+    navigation.navigate("PaymentsScreen");
+  };
+  const [products, setProducts] = useState<Product[]>([
+    {
+      id: "1",
+      name: "Hamburguesa doble queso",
+      price: "$100.00",
+      image: "https://via.placeholder.com/350",
+      quantity: 0,
+    },
+    {
+      id: "2",
+      name: "Hamburguesa doble queso",
+      price: "$100.00",
+      image: "https://via.placeholder.com/350",
+      quantity: 0,
+    },
+    {
+      id: "3",
+      name: "Hamburguesa doble queso",
+      price: "$100.00",
+      image: "https://via.placeholder.com/350",
+      quantity: 0,
+    },
+    {
+      id: "4",
+      name: "Hamburguesa doble queso",
+      price: "$100.00",
+      image: "https://via.placeholder.com/350",
+      quantity: 0,
+    },
+    {
+      id: "5",
+      name: "Hamburguesa doble queso",
+      price: "$100.00",
+      image: "https://via.placeholder.com/350",
+      quantity: 0,
+    },
+    {
+      id: "6",
+      name: "Hamburguesa doble queso",
+      price: "$100.00",
+      image: "https://via.placeholder.com/350",
+      quantity: 0,
+    },
+  ]);
 
-  const renderItem = ({ item }: { item: any }) => (
-    <TouchableOpacity style={styles.productItem}>
-      <Image source={{ uri: item.image }} style={styles.productImage} />
-      <View style={styles.productInfo}>
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productPrice}>{item.price}</Text>
-      </View>
-    </TouchableOpacity>
+  const updateQuantity = (id: string, change: number) => {
+    setProducts(
+      products.map((product) =>
+        product.id === id
+          ? { ...product, quantity: Math.max(0, product.quantity + change) }
+          : product
+      )
+    );
+  };
+
+  const renderItem = ({ item }: { item: Product }) => (
+    <ProductItem
+      id={item.id}
+      name={item.name}
+      price={item.price}
+      imageUrl={item.image}
+      quantity={item.quantity}
+    />
   );
 
   return (
-    <View style={styles.container}>
-      <AppBar
-        leftIcon="chevron-back"
-        onLeftPress={() => navigation.goBack()}
-        title="Mis Ordenes"
-      />
-      
+    <BasicTabLayout paddingBottom={"5%"}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Carrito de compras</Text>
+      </View>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={products}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
       />
-      <View style={styles.bottomContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress()}>
-          <Text style={styles.buttonText}>Terminar orden</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      <Button
+        text={"Terminar orden"}
+        handlePress={handlePress}
+        backgroundColor={colors.primary}
+        textColor={colors.white}
+        width={"100%"}
+      />
+    </BasicTabLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    backgroundColor: '#f5f5f5',
-  },
-  bottomContainer: {
+  headerContainer: {
     height: "10%",
     justifyContent: "center",
     alignItems: "center",
-    
-  },
-  button: {
-    backgroundColor: "#0C9488",
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    width: "70%",
-  },
-  buttonText: {
-    fontSize: 16,
-    color: "white",
-    fontWeight : "bold"
   },
   header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 16,
+    fontFamily: fonts.primary,
+    fontSize: 25,
   },
   productItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 40,
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.white,
+    paddingHorizontal: 15,
+    paddingVertical: 20,
     borderRadius: 20,
     marginBottom: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     elevation: 5,
     shadowOpacity: 0.1,
     shadowRadius: 8,
-    
   },
   productImage: {
-    width: 50,
-    height: 50,
+    width: "20%",
+    aspectRatio: 1,
     borderRadius: 25,
     marginRight: 16,
   },
@@ -101,17 +147,36 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   productName: {
+    fontFamily: fonts.primary,
     fontSize: 16,
-    fontWeight: 'bold',
   },
   productPrice: {
     fontSize: 14,
-    color: '#0C9488',
+    color: "#0C9488",
     marginTop: 4,
   },
-  arrow: {
-    fontSize: 20,
-    color: '#777',
+  quantityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  quantityButton: {
+    backgroundColor: colors.primary,
+    width: 25,
+    aspectRatio: 1,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  quantityButtonText: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  quantityText: {
+    marginHorizontal: 10,
+    fontSize: 16,
+    fontFamily: fonts.primary,
   },
 });
 

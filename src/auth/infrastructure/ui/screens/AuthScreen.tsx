@@ -10,7 +10,7 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
   const [activeTab, setActiveTab] = useState(0);
   const insets = useSafeAreaInsets();
 
-  const handlePressLogin = () => {
+  const handlePressLogin = (email: string, password: string) => {
     navigation.reset({
       index: 0,
       routes: [{ name: "HomeTabScreen" }],
