@@ -1,105 +1,115 @@
-import React from 'react';
-import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
-import { PaymentsScreenRouteProps } from '../types/PaymentsScreenRouteProps'; 
-import AppBar from '@/shared/infrastructure/ui/components/AppBar';
-const PaymentsScreen = ({navigation} : PaymentsScreenRouteProps) => {
-  const [selectedOption, setSelectedOption] = useState('domicilio');
-  const handlePress = () => {
-    navigation.navigate('PaymentMethodScreen');
-  }
-  return (
-    
-    <SafeAreaView style={styles.container}>
-      
-      <AppBar
-        leftIcon="chevron-back"
-        onLeftPress={() => navigation.goBack()}
-        title="Pagar Orden"
-      />
-      <View style={styles.content}>
-        <Text style={styles.title}>Entrega</Text>
-        <View style={styles.detailsHeader}>
-            <Text style={styles.detailsText}>Detalles</Text>
-            <Text style={styles.changeText}>Cambiar</Text>
-          </View>
-        <View style={styles.details}>
+import React from "react";
+import { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { PaymentsScreenRouteProps } from "../types/PaymentsScreenRouteProps";
+import AppBar from "@/shared/infrastructure/ui/components/AppBar";
+import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
+import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
+import { colors } from "@/shared/infrastructure/ui/consts/colors";
+import Button from "@/shared/infrastructure/ui/components/Button";
+import ShippingMethodOption from "../components/ShippingMethodOption";
+import { ShippingMethod } from "../enums/shippingMethod.enum";
 
-          <View style={styles.info}>
-            <Text style={styles.infoText}>Martin Santos</Text>
-            <Text style={styles.infoText}>Av. central poniente entre 5 y 6 #521</Text>
-            <Text style={styles.infoText}>9681191973</Text>
+const PaymentsScreen = ({ navigation }: PaymentsScreenRouteProps) => {
+  const [selectedMethodOption, setSelectedMethodOption] =
+    useState<ShippingMethod>(ShippingMethod.delivery);
+  const handlePress = () => {
+    navigation.navigate("PaymentMethodScreen");
+  };
+  return (
+    <BasicLayout>
+      <View style={styles.container}>
+        <View style={styles.topSection}>
+          <AppBar
+            leftIcon="chevron-back"
+            onLeftPress={() => navigation.goBack()}
+            title="Pago del pedido"
+          />
+          <View style={styles.deliveryInfoContainer}>
+            <Text style={styles.title}>Entrega</Text>
+            <View style={styles.sectionContainer}>
+              <View style={styles.sectionHeader}>
+                <Text style={styles.detailsText}>Detalles</Text>
+                <TouchableOpacity>
+                  <Text style={styles.changeText}>Cambiar</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.sectionBodyContainer}>
+                <Text style={styles.infoText}>Nombre: Martin Santos</Text>
+                <Text style={styles.infoText}>
+                  Direccion: Av. central poniente entre 5 y 6 #521
+                </Text>
+                <Text style={styles.infoText}>
+                  Núm. de telefono: 9681191973
+                </Text>
+              </View>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.detailsText}>Metodo de entrega</Text>
+              <View style={styles.sectionBodyContainer}>
+                <ShippingMethodOption
+                  optionValue={ShippingMethod.delivery}
+                  method="Entrega a domicilio"
+                  isSelected={selectedMethodOption === ShippingMethod.delivery}
+                  onSelect={(value) => setSelectedMethodOption(value)}
+                />
+                <ShippingMethodOption
+                  optionValue={ShippingMethod.pickup}
+                  method="Recoger en tienda"
+                  isSelected={selectedMethodOption === ShippingMethod.pickup}
+                  onSelect={(value) => setSelectedMethodOption(value)}
+                />
+              </View>
+            </View>
           </View>
         </View>
-        <Text style={styles.subTitle}>Metodo de entrega.</Text>
-        <View style={styles.radioGroup}>
-          <TouchableOpacity
-            style={styles.radioOption}
-            onPress={() => setSelectedOption('domicilio')}
-          >
-            <View style={styles.radioCircle}>
-              {selectedOption === 'domicilio' && <View style={styles.selectedRb} />}
-            </View>
-            <Text style={styles.radioText}>Entrega a domicilio</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.radioOption}
-            onPress={() => setSelectedOption('establecimiento')}
-          >
-            <View style={styles.radioCircle}>
-              {selectedOption === 'establecimiento' && <View style={styles.selectedRb} />}
-            </View>
-            <Text style={styles.radioText}>Entrega en establecimiento</Text>
-          </TouchableOpacity>
+        <View style={styles.bottomSection}>
+          <View style={styles.totalContainer}>
+            <Text style={styles.totalText}>Total</Text>
+            <Text style={styles.totalAmount}>$23,000</Text>
+          </View>
+          <Button
+            text="Continuar"
+            handlePress={() => handlePress()}
+            backgroundColor={colors.primary}
+            textColor={colors.white}
+            width={"100%"}
+          />
         </View>
-        
-        <View style={styles.totalContainer}>
-          <Text style={styles.totalText}>Total</Text>
-          <Text style={styles.totalAmount}>$23,000</Text>
-        </View>
-        <View style={styles.bottomContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress()}>
-          <Text style={styles.buttonText}>Terminar Orden</Text>
-        </TouchableOpacity>
       </View>
-      
-      </View>
-    </SafeAreaView>
+    </BasicLayout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop : 15,
-    backgroundColor: '#f5f5f5',
+    justifyContent: "space-between",
   },
-  header: {
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+  topSection: {},
+  bottomSection: {
+    gap: 20,
+    justifyContent: "flex-end",
   },
-  headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  content: {
-    flex: 1,
-    padding: 20,
+  deliveryInfoContainer: {
+    paddingTop: 20,
+    gap: 30,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontFamily: fonts.primary,
+    fontSize: 34,
+    fontWeight: "400",
   },
-  details: {
-    backgroundColor: '#fff',
-    borderRadius: 30,
-    padding: 30,
-    marginBottom: 20,
-    shadowColor: "#000",
+  sectionContainer: {
+    gap: 15,
+  },
+  sectionBodyContainer: {
+    gap: 10,
+    backgroundColor: colors.white,
+    borderRadius: 20,
+    paddingHorizontal: 25,
+    paddingVertical: 15,
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -107,102 +117,37 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowOpacity: 0.25,
   },
-  detailsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   detailsText: {
+    fontFamily: fonts.primary,
     fontSize: 16,
-    fontWeight: 'bold',
   },
   changeText: {
+    fontFamily: fonts.primary,
     fontSize: 16,
-    color: '#00aaff',
-  },
-  info: {
-    marginTop: 10,
+    color: colors.primary,
   },
   infoText: {
     fontSize: 16,
     marginBottom: 5,
   },
-  subTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-
   totalContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop : 225
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   totalText: {
+    fontFamily: fonts.primary,
     fontSize: 18,
-    fontWeight: 'bold',
   },
   totalAmount: {
+    fontFamily: fonts.primary,
     fontSize: 24,
-    fontWeight: 'bold',
-  },
-  bottomContainer: {
-    height: "10%",
-    justifyContent: "center",
-    alignItems: "center",
-    
-    
-  },
-  button: {
-    backgroundColor: "#0C9488",
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    width: "70%",
-  },
-  buttonText: {
-    fontSize: 16,
-    color: "white",
-    fontWeight : "bold"
-  },
-  radioGroup: {
-    backgroundColor: '#fff',
-    borderRadius: 35,
-    padding: 30,
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    elevation: 5,
-    shadowOpacity: 0.25,
-  },
-  radioOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  radioCircle: {
-    height: 24,
-    width: 24,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#0C9488',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
-  },
-  selectedRb: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: '#0C9488',
-  },
-  radioText: {
-    fontSize: 16,
+    fontWeight: "600",
   },
 });
 
