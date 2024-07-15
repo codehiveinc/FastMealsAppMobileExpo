@@ -35,11 +35,10 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
     password: "",
     phone: "",
   });
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   const handleTabPress = (index: number) => {
     setActiveTab(index);
   };
-
 
   const handlePressLogin = () => {
     navigation.navigate("HomeTabScreen");
@@ -51,14 +50,14 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
 
   const handleChange = (text: string): void => {
     // Permitir solo caracteres numéricos
-    const numericValue = text.replace(/[^0-9-]/g, '');
+    const numericValue = text.replace(/[^0-9-]/g, "");
     setRegisterFormData({ ...registerFormData, phone: numericValue });
-  
+
     // Validar si es un número de teléfono o una hora válida
     if (numericValue.length === 0) {
-      setError('Este campo no puede estar vacío.');
+      setError("Este campo no puede estar vacío.");
     } else {
-      setError('');
+      setError("");
     }
   };
   return (
@@ -230,7 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 120,
     borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,        
+    borderBottomRightRadius: 30,
     shadowColor: "#000",
     width: "100%",
   },
@@ -282,7 +281,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontWeight: "500",
     fontSize: 17,
-
   },
   forgotPassword: {
     color: "#000E21",
@@ -325,5 +323,3 @@ const styles = StyleSheet.create({
   },
 });
 export default AuthScreen;
-
-
