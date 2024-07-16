@@ -1,13 +1,11 @@
 import {
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import ProductItem from "../components/ProductItem";
 import { SearchScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
 import { Ionicons } from "@expo/vector-icons";
@@ -118,7 +116,7 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
   const [search, setSearch] = useState("");
 
   const filteredProductos = productos.filter((producto) =>
-    producto.title.toLowerCase().includes(search.toLowerCase()),
+    producto.title.toLowerCase().includes(search.toLowerCase())
   );
 
   const handlePress = () => {
