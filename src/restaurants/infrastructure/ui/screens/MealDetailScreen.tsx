@@ -1,23 +1,34 @@
 import React from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-
-import MealImage from "assets/images/MealImage.png";
+import { View, Text, Image, StyleSheet } from "react-native";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { MealDetailScreenRouteProps } from "@/restaurants/infrastructure/ui/types/RestaurantsScreensRouteProps";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
+import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
+
 const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [modalMessage, setModalMessage] = React.useState("");
+
+  const disableModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleAddToCart = () => {
+    setModalMessage("Alimento agregado al carrito");
+    setIsModalVisible(true);
+  };
   return (
     <BasicLayout>
+      <BasicModal
+        visible={isModalVisible}
+        message={modalMessage}
+        onClose={disableModal}
+        primaryButtonText="Aceptar"
+        onPrimaryButtonPress={disableModal}
+      />
       <AppBar
         leftIcon="chevron-back"
         onLeftPress={() => navigation.goBack()}
@@ -47,7 +58,7 @@ const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
       </View>
       <Button
         text="Agregar al carrito"
-        handlePress={() => navigation.navigate("Cart")}
+        handlePress={handleAddToCart}
         backgroundColor={colors.primary}
         textColor={colors.white}
         width={"100%"}
