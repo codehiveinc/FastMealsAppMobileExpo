@@ -6,12 +6,12 @@ import {
   View,
 } from "react-native";
 import { useState } from "react";
-import ProductItem from "../components/ProductItem";
 import { SearchScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
 import { Ionicons } from "@expo/vector-icons";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
+import { ProductItemCard } from "../components/ProductItemCard";
 
 const productos = [
   {
@@ -116,7 +116,7 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
   const [search, setSearch] = useState("");
 
   const filteredProductos = productos.filter((producto) =>
-    producto.title.toLowerCase().includes(search.toLowerCase())
+    producto.title.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handlePress = () => {
@@ -143,7 +143,7 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
           showsVerticalScrollIndicator={false}
         >
           {filteredProductos.map((producto) => (
-            <ProductItem
+            <ProductItemCard
               key={producto.id}
               title={producto.title}
               price={producto.price}

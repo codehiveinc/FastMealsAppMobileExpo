@@ -2,7 +2,7 @@ import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-interface ProductProps {
+interface ProductCartItemCardProps {
   id: string;
   name: string;
   price: string;
@@ -11,14 +11,14 @@ interface ProductProps {
   handleQuantityChange: (id: string, quantity: number) => void;
 }
 
-const ProductItem = ({
+const ProductCartItemCard = ({
   id,
   name,
   price,
   imageUrl,
   quantity,
   handleQuantityChange,
-}: ProductProps) => {
+}: ProductCartItemCardProps) => {
   return (
     <View style={styles.productItem}>
       <Image source={{ uri: imageUrl }} style={styles.productImage} />
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductItem;
+export default ProductCartItemCard;

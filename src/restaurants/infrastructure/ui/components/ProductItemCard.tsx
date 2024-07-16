@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-type ProductItemProps = {
+type ProductItemCardProps = {
   title: string;
   price: string;
   image: string;
@@ -16,13 +16,13 @@ type ProductItemProps = {
   onPress: () => void;
 };
 
-const ProductItem = ({
+export const ProductItemCard = ({
   title,
   price,
   image,
   width,
   onPress,
-}: ProductItemProps) => {
+}: ProductItemCardProps) => {
   return (
     <TouchableOpacity style={[styles.container, { width }]} onPress={onPress}>
       <Image source={{ uri: image }} style={styles.image} />
@@ -67,5 +67,3 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
 });
-
-export default ProductItem;

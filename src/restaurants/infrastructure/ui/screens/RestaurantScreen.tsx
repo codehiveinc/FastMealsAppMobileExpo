@@ -4,7 +4,7 @@ import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
-import ProductItem from "../components/ProductItem";
+import ProductItem from "../components/ProductItemCard";
 
 const productos = [
   {

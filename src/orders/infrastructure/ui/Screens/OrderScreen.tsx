@@ -5,7 +5,7 @@ import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
-import ProductItem from "../components/ProductItem";
+import ProductCartItemCard from "../components/ProductCartItemCard";
 
 interface Product {
   id: string;
@@ -75,7 +75,7 @@ const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
   };
 
   const renderItem = ({ item }: { item: Product }) => (
-    <ProductItem
+    <ProductCartItemCard
       id={item.id}
       name={item.name}
       price={item.price}
