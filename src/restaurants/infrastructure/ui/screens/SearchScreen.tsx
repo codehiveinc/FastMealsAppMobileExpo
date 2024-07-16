@@ -11,102 +11,105 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ProductItem from "../components/ProductItem";
 import { SearchScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
 import { Ionicons } from "@expo/vector-icons";
+import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
+import { colors } from "@/shared/infrastructure/ui/consts/colors";
+import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 
 const productos = [
   {
     id: 1,
     title: "Veggie tomato mix",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 2,
     title: "Egg and cucumber",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 3,
     title: "Fried chicken m.",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 4,
     title: "Moi-moi and ekpa",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 5,
     title: "Veggie tomato mix",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 6,
     title: "Egg and cucumber",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 7,
     title: "Fried chicken m.",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 8,
     title: "Moi-moi and ekpa",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 9,
     title: "Veggie tomato mix",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 10,
     title: "Egg and cucumber",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 11,
     title: "Fried chicken m.",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 12,
     title: "Moi-moi and ekpa",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 13,
     title: "Veggie tomato mix",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 14,
     title: "Egg and cucumber",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 15,
     title: "Fried chicken m.",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
   {
     id: 16,
     title: "Moi-moi and ekpa",
-    price: "N1,900",
+    price: "$1,900",
     image: "https://via.placeholder.com/100",
   },
 ];
@@ -123,49 +126,53 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TouchableOpacity onPress={handlePress}>
-          <Ionicons name="chevron-back" size={30} />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Buscar productos"
-          value={search}
-          onChangeText={setSearch}
-          autoFocus
-        />
-      </View>
-      <View style={styles.contentContainer}>
-        <Text style={styles.titleText}>Productos</Text>
-        <ScrollView contentContainerStyle={styles.productsContainer} showsVerticalScrollIndicator={false}>
+    <BasicLayout backgroundColor={colors.white}>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <TouchableOpacity onPress={handlePress}>
+            <Ionicons name="chevron-back" size={30} />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Buscar productos"
+            value={search}
+            onChangeText={setSearch}
+            autoFocus
+          />
+        </View>
+        <ScrollView
+          contentContainerStyle={styles.productsContainer}
+          showsVerticalScrollIndicator={false}
+        >
           {filteredProductos.map((producto) => (
             <ProductItem
               key={producto.id}
               title={producto.title}
               price={producto.price}
               image={producto.image}
+              width={"40%"}
+              onPress={() => navigation.navigate("MealDetailScreen")}
             />
           ))}
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </BasicLayout>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#F9F9F9",
     flex: 1,
+    gap: 20,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
     height: "7%",
-    paddingHorizontal: 20,
   },
   searchInput: {
+    fontFamily: fonts.primary,
     backgroundColor: "#EEEEEE",
     width: "80%",
     height: "100%",
@@ -173,23 +180,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderRadius: 25,
   },
-  contentContainer: {
-    width: "100%",
-    height: "93%",
-    alignItems: "center",
-    paddingTop: 40,
-    gap: 20,
-  },
-  titleText: {
-    fontFamily: "Poppins-Regular",
-    fontSize: 28,
-  },
   productsContainer: {
+    justifyContent: "center",
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 20,
-    paddingBottom: 20,
   },
 });
 

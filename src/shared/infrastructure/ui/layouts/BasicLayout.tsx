@@ -1,14 +1,21 @@
 import React, { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../consts/colors";
 
 type BasicLayoutProps = {
   children: ReactNode;
+  backgroundColor?: string;
 };
 
-const BasicLayout = ({ children }: BasicLayoutProps) => {
+const BasicLayout = ({ children, backgroundColor }: BasicLayoutProps) => {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView
+      style={[
+        styles.safeArea,
+        { backgroundColor: backgroundColor || colors.white },
+      ]}
+    >
       <View style={styles.container}>{children}</View>
     </SafeAreaView>
   );
