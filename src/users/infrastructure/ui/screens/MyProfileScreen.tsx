@@ -18,6 +18,10 @@ const userSections = [
 ];
 
 const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
+  const handleChangeUserInformation = () => {
+    navigation.navigate("UpdateUserScreen");
+  }
+
   const renderUserSections = () => {
     return userSections.map((section) => (
       <Section
@@ -36,7 +40,7 @@ const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
         <View style={styles.subheaderContainer}>
           <View style={styles.userInformationHeaderContainer}>
             <Text style={styles.subheaderText}>Detalles Personales</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleChangeUserInformation()}>
               <Text style={styles.changeUserInformationText}>Cambiar</Text>
             </TouchableOpacity>
           </View>

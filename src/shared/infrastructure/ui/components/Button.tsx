@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: fonts.primary,
     fontSize: 16,
+    fontWeight: "700",
   },
 });
 

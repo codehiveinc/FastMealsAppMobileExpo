@@ -20,3 +20,8 @@ export type EditMealScreenRouteProps = NativeStackScreenProps<
   RootStackParamList,
   "EditMealScreen"
 >;
+
+export type UpdateUserScreenRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "UpdateUserScreen"
+>;

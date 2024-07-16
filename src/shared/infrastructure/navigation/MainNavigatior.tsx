@@ -10,7 +10,6 @@ import MealDetailScreen from "@/restaurants/infrastructure/ui/screens/MealDetail
 import OrderScreen from "@/orders/infrastructure/ui/Screens/OrderScreen";
 import UpdateMealScreen from "@/restaurants/infrastructure/ui/screens/UpdateMealScreen";
 import CreateMealScreen from "@/restaurants/infrastructure/ui/screens/CreateMealScreen";
-import UpdateUserScreen from "@/users/infrastructure/ui/UpdateUserScreen";
 import CreateRestaurantScreen from "@/restaurants/infrastructure/ui/screens/CreateRestaurantScreen";
 import MyRestaurantScreen from "@/users/infrastructure/ui/screens/MyRestaurantScreen";
 import EditMealScreen from "@/users/infrastructure/ui/screens/EditMealScreen";
@@ -18,6 +17,7 @@ import PaymentsScreen from "@/payment/infrastructure/ui/screens/PaymentsScreen";
 import PaymentMethodScreen from "@/payment/infrastructure/ui/screens/PaymentMethodScreen";
 import MyRestaurantsScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantsScreen";
 import RootStackParamList from "../ui/types/RootStackParamList";
+import UpdateUserScreen from "@/users/infrastructure/ui/screens/UpdateUserScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

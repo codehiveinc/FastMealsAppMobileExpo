@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { TextField } from "@/shared/infrastructure/ui/components/TextField";
 import Button from "@/shared/infrastructure/ui/components/Button";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
-import { validateEmail, validatePassword } from "../validations/validations";
+import { validateEmail, validatePassword } from "../../../../shared/infrastructure/ui/validations/validations";
 
 interface AuthLoginFormProps {
   handlePressLogin: (email: string, password: string) => void;

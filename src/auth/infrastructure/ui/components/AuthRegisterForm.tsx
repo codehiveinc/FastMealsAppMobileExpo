@@ -8,7 +8,7 @@ import {
   validateName,
   validatePassword,
   validatePhone,
-} from "../validations/validations";
+} from "../../../../shared/infrastructure/ui/validations/validations";
 
 interface AuthRegisterFormProps {
   handlePressRegister: () => void;
