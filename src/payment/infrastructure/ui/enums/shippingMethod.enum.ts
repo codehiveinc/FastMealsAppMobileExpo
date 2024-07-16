@@ -1,4 +1,4 @@
 export enum ShippingMethod {
-  pickup = "pickup",
-  delivery = "delivery",
+  PICK_UP = "pickup",
+  DELIVERY = "delivery",
 }

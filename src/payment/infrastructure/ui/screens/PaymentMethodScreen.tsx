@@ -1,72 +1,77 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Modal } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { PaymentMethodScreenRouteProps } from '../types/PaymentsScreenRouteProps';
-import AppBar from '@/shared/infrastructure/ui/components/AppBar';
-import { launchImageLibrary } from 'react-native-image-picker';
-const PaymentMethodScreen = ({navigation}: PaymentMethodScreenRouteProps) => {
-    const [selectedOption, setSelectedOption] = useState('transferencia');
-    const [modalVisible, setModalVisible] = useState(false);
-    const [cashModalVisible, setCashModalVisible] = useState(false);
-    const handleTerminarPress = () => {
-      if (selectedOption === 'transferencia') {
-        setModalVisible(true);
-      }
-      else if (selectedOption === 'efectivo') {
-        setCashModalVisible(true);
-      }
-      
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  Modal,
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { PaymentMethodScreenRouteProps } from "../types/PaymentsScreenRouteProps";
+import AppBar from "@/shared/infrastructure/ui/components/AppBar";
+import { launchImageLibraryAsync } from "expo-image-picker";
+
+const PaymentMethodScreen = ({ navigation }: PaymentMethodScreenRouteProps) => {
+  const [selectedOption, setSelectedOption] = useState("transferencia");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [cashModalVisible, setCashModalVisible] = useState(false);
+  const handleTerminarPress = () => {
+    if (selectedOption === "transferencia") {
+      setModalVisible(true);
+    } else if (selectedOption === "efectivo") {
+      setCashModalVisible(true);
+    }
+  };
+
+  const setHandlePress = () => {
+    navigation.navigate("HomeTabScreen");
+  };
+
+  const openGallery = () => {
+    const options = {
+      mediaType: "photo" as const,
+      quality: 1 as const,
     };
 
-    const setHandlePress = () => {
-        navigation.navigate('HomeTabScreen');
-    }
-
-    const openGallery = () => {
-        const options = {
-          mediaType: 'photo' as const,
-          quality: 1 as const,
-        };
-    
-        launchImageLibrary(options, (response) => {
-          if (response.didCancel) {
-            console.log('User cancelled image picker');
-          } else if (response.errorCode) {
-            console.log('ImagePicker Error: ', response.errorMessage);
-          } else {
-            console.log('ImagePicker Response: ', response);
-            // Handle the selected image here (e.g., upload it to the server)
-          }
-        });
-      };
-  
+    launchImageLibraryAsync(options).then((result) => {
+      if (!result.canceled) {
+        setModalVisible(false);
+        setCashModalVisible(true);
+      }
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-        <AppBar
-            leftIcon="chevron-back"
-            onLeftPress={() => navigation.goBack()}
-            title="Pagar Orden"
-        />
+      <AppBar
+        leftIcon="chevron-back"
+        onLeftPress={() => navigation.goBack()}
+        title="Pagar Orden"
+      />
       <View style={styles.content}>
         <Text style={styles.title}>Método de pago</Text>
         <View style={styles.paymentOptions}>
           <TouchableOpacity
             style={styles.radioOption}
-            onPress={() => setSelectedOption('transferencia')}
+            onPress={() => setSelectedOption("transferencia")}
           >
             <View style={styles.radioCircle}>
-              {selectedOption === 'transferencia' && <View style={styles.selectedRb} />}
+              {selectedOption === "transferencia" && (
+                <View style={styles.selectedRb} />
+              )}
             </View>
             <Icon name="bank" size={20} color="#FFA500" style={styles.icon} />
             <Text style={styles.radioText}>Transferencia</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.radioOption}
-            onPress={() => setSelectedOption('efectivo')}
+            onPress={() => setSelectedOption("efectivo")}
           >
             <View style={styles.radioCircle}>
-              {selectedOption === 'efectivo' && <View style={styles.selectedRb} />}
+              {selectedOption === "efectivo" && (
+                <View style={styles.selectedRb} />
+              )}
             </View>
             <Icon name="money" size={20} color="#FF1493" style={styles.icon} />
             <Text style={styles.radioText}>Efectivo</Text>
@@ -84,13 +89,15 @@ const PaymentMethodScreen = ({navigation}: PaymentMethodScreenRouteProps) => {
           <Text style={styles.totalAmount}>$23,000</Text>
         </View>
         <View style={styles.bottomContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => handleTerminarPress()}>
-          <Text style={styles.buttonText}>Terminar orden</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleTerminarPress()}
+          >
+            <Text style={styles.buttonText}>Terminar orden</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-
-    </View>
-    <Modal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -98,10 +105,17 @@ const PaymentMethodScreen = ({navigation}: PaymentMethodScreenRouteProps) => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Sube tu recibo de transferencia</Text>
+            <Text style={styles.modalTitle}>
+              Sube tu recibo de transferencia
+            </Text>
             <TouchableOpacity style={styles.uploadButton} onPress={openGallery}>
               <Text style={styles.uploadButtonText}>Agregar recibo</Text>
-              <Icon name="paperclip" size={20} color="#00aaff" style={styles.uploadIcon} />
+              <Icon
+                name="paperclip"
+                size={20}
+                color="#00aaff"
+                style={styles.uploadIcon}
+              />
             </TouchableOpacity>
             <View style={styles.modalButtons}>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -123,11 +137,13 @@ const PaymentMethodScreen = ({navigation}: PaymentMethodScreenRouteProps) => {
         <View style={styles.modalContainer2}>
           <View style={styles.modalContent2}>
             <Text style={styles.modalTitle2}>Tu pedido llegara pronto</Text>
-            
-              <Text style={styles.uploadButtonText2}>Gracias por tu compra</Text>
-            
-            
-            <TouchableOpacity style={styles.submitButton2} onPress={() => setHandlePress()}>
+
+            <Text style={styles.uploadButtonText2}>Gracias por tu compra</Text>
+
+            <TouchableOpacity
+              style={styles.submitButton2}
+              onPress={() => setHandlePress()}
+            >
               <Text style={styles.submitButtonText2}>Ir al menu</Text>
             </TouchableOpacity>
           </View>
@@ -141,18 +157,18 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
   },
   header: {
     paddingHorizontal: 20,
     paddingVertical: 15,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
   },
   headerText: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   content: {
     flex: 1,
@@ -160,24 +176,24 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
-    paddingTop : 40
+    paddingTop: 40,
   },
   paymentOptions: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 30,
     padding: 15,
     marginBottom: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     elevation: 5,
     shadowOpacity: 0.1,
     shadowRadius: 8,
   },
   radioOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 10,
   },
   radioCircle: {
@@ -185,16 +201,16 @@ const styles = StyleSheet.create({
     width: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#0C9488',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderColor: "#0C9488",
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 10,
   },
   selectedRb: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: '#0C9488',
+    backgroundColor: "#0C9488",
   },
   radioText: {
     fontSize: 16,
@@ -203,11 +219,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   details: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 30,
     padding: 15,
     marginBottom: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     elevation: 5,
     shadowOpacity: 0.1,
@@ -215,7 +231,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 16,
-    color: '#888',
+    color: "#888",
     marginBottom: 5,
   },
   valueText: {
@@ -223,26 +239,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   totalContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 20,
-    marginTop: 200
+    marginTop: 200,
   },
   totalText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   totalAmount: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   bottomContainer: {
     height: "10%",
     justifyContent: "center",
     alignItems: "center",
-    
-    
   },
   button: {
     backgroundColor: "#0C9488",
@@ -255,30 +269,30 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: "white",
-    fontWeight : "bold"
+    fontWeight: "bold",
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
     width: 300,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   uploadButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#0C9488',
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#0C9488",
     borderWidth: 1,
     borderRadius: 10,
     paddingVertical: 10,
@@ -287,76 +301,75 @@ const styles = StyleSheet.create({
   },
   uploadButtonText: {
     fontSize: 16,
-    color: '#0C9488',
+    color: "#0C9488",
     marginRight: 10,
-    
   },
   uploadButtonText2: {
     fontSize: 16,
-    color: '#0C9488',
+    color: "#0C9488",
     marginRight: 10,
-    paddingTop : 20,
-    paddingBottom : 30
+    paddingTop: 20,
+    paddingBottom: 30,
   },
   uploadIcon: {
-    color: '#0C9488',
+    color: "#0C9488",
   },
   modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
   },
   cancelButtonText: {
     fontSize: 16,
-    color: '#888',
-    paddingTop : 9,
-    alignItems: 'center',
+    color: "#888",
+    paddingTop: 9,
+    alignItems: "center",
     marginRight: 20,
   },
   submitButton: {
-    backgroundColor: '#0C9488',
+    backgroundColor: "#0C9488",
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
   submitButtonText: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
   },
   submitButton2: {
-    backgroundColor: '#0C9488',
+    backgroundColor: "#0C9488",
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   submitButtonText2: {
     fontSize: 16,
-    color: '#fff',
+    color: "#fff",
   },
   modalContainer2: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent2: {
     width: 300,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   modalTitle2: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
   },
   uploadButton2: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: '#0C9488',
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#0C9488",
     borderWidth: 1,
     borderRadius: 10,
     paddingVertical: 10,

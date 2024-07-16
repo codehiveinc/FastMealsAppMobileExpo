@@ -1,19 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ShippingMethod } from "../enums/shippingMethod.enum";
 
-type AddressMethodOptionProps = {
-  optionValue: ShippingMethod;
-  method: string;
+type MethodOptionProps = {
+  optionValue: string;
+  methodName: string;
   isSelected: boolean;
-  onSelect: (value: ShippingMethod) => void;
+  onSelect: (value: string) => void;
 };
 
-const ShippingMethodOption = ({
+const MethodOption = ({
   optionValue,
-  method,
+  methodName,
   isSelected,
   onSelect,
-}: AddressMethodOptionProps) => {
+}: MethodOptionProps) => {
   return (
     <TouchableOpacity
       style={styles.addressMethodOption}
@@ -22,7 +21,7 @@ const ShippingMethodOption = ({
       <View style={styles.radioOption}>
         {isSelected && <View style={styles.selectedRadioButton} />}
       </View>
-      <Text style={styles.methodOptionText}>{method}</Text>
+      <Text style={styles.methodOptionText}>{methodName}</Text>
     </TouchableOpacity>
   );
 };
@@ -53,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShippingMethodOption;
+export default MethodOption;
