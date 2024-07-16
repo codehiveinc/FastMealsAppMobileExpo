@@ -22,7 +22,7 @@ const GetStartedScreen = ({ navigation }: GetStartedScreenRouteProps) => {
       </View>
       <View style={styles.bottomContainer}>
         <Button
-          text="Get Started"
+          text="Comenzar"
           backgroundColor={colors.white}
           textColor={colors.black}
           handlePress={handlePress}
