@@ -1,209 +1,175 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
-import * as ImagePicker from 'expo-image-picker';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import AppBar from '@/shared/infrastructure/ui/components/AppBar';
+import React, { useCallback, useState } from "react";
+import { View, StyleSheet } from "react-native";
+import AppBar from "@/shared/infrastructure/ui/components/AppBar";
+import { UpdateMealScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
+import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
+import { TextField } from "@/shared/infrastructure/ui/components/TextField";
+import {
+  validateImage,
+  validatePrice,
+  validateText,
+} from "@/shared/infrastructure/ui/validations/validations";
+import Button from "@/shared/infrastructure/ui/components/Button";
+import { colors } from "@/shared/infrastructure/ui/consts/colors";
+import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
+import ImageField from "@/shared/infrastructure/ui/components/ImageField";
 
-export default function UpdateMealScreen({ navigation }: { navigation: NavigationProp<any> }) {
-    const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState<string | null>(null);
+const UpdateMealScreen = ({ navigation }: UpdateMealScreenRouteProps) => {
+  const [productFormData, setProductFormData] = useState({
+    name: "Chilaquiles",
+    price: "1200",
+    description: "Deliciosos chilaquiles con salsa verde",
+    imageUri: "https://via.placeholder.com/350",
+  });
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
-        }
-    };
+  const [errors, setErrors] = useState({
+    name: "",
+    price: "",
+    description: "",
+    imageUri: "",
+  });
 
-    const handleSubmit = async () => {
-        if (!name || !price || !description || !image) {
-            Alert.alert('Todos los campos son obligatorios.');
-            return;
-        }
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('price', price);
-        formData.append('description', description);
-        formData.append('image', {
-            uri: image,
-            type: 'image/jpeg',
-            name: 'product.jpg'
-        } as any);
+  const handleNameChange = (name: string) => {
+    setProductFormData((prev) => ({ ...prev, name }));
+    setErrors((prev) => ({
+      ...prev,
+      name: validateText(name, "nombre"),
+    }));
+  };
 
-        try {
-            console.log(formData);
-            {/*const response = await fetch('url-api', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: formData,
-            });
+  const handleDescriptionChange = (description: string) => {
+    setProductFormData((prev) => ({ ...prev, description }));
+    setErrors((prev) => ({
+      ...prev,
+      description: validateText(description, "descripcion"),
+    }));
+  };
 
-            if (response.ok) {
-                Alert.alert('Producto agregado con éxito');
-                navigation.goBack();
-            } else {
-                Alert.alert('Error al agregar el producto');
-            }*/}
-        } catch (error) {
-            Alert.alert('Error de red. Inténtalo de nuevo más tarde.');
-        }
-    };
+  const handlePriceChange = (price: string) => {
+    const numericPrice = price.replace(/[^\d]/g, "");
+    setProductFormData((prev) => ({ ...prev, price: numericPrice }));
+    setErrors((prev) => ({
+      ...prev,
+      price: validatePrice(numericPrice, "precio"),
+    }));
+  };
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <AppBar leftIcon='chevron-back' title='Editar producto' />
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <View style={styles.form}>
-                    <Text style={styles.label}>Nombre del producto</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Nuevo nombre"
-                        placeholderTextColor={'#888'}
-                        value={name}
-                        onChangeText={setName}
-                    />
+  const handleImageChange = async (uri: string) => {
+    setProductFormData({ ...productFormData, imageUri: uri });
+    setErrors((prev) => ({
+      ...prev,
+      imageUri: validateImage(uri),
+    }));
+  };
 
-                    <Text style={styles.label}>Precio del producto</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Nuevo precio"
-                        placeholderTextColor={'#888'}
-                        keyboardType='numeric'
-                        value={price}
-                        onChangeText={setPrice}
-                    />
-
-                    <Text style={styles.label}>Descripción</Text>
-                    <TextInput
-                        style={[styles.input, styles.textArea, styles.inputArea]}
-                        placeholder="Nueva Descripción"
-                        multiline
-                        numberOfLines={4}
-                        placeholderTextColor={'#888'}
-                        value={description}
-                        onChangeText={setDescription}
-                        textAlignVertical='top'
-                    />
-
-                    <Text style={styles.label}>Imagen</Text>
-                    <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
-                        {image ? (
-                            <Image source={{ uri: image }} style={styles.image} />
-                        ) : (
-                            <Text style={styles.imageButtonText}>Agregar Imagen</Text>
-                        )}
-                    </TouchableOpacity>
-
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
-                            <Text style={styles.cancelButtonText}>Cancelar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
-                            <Text style={styles.saveButtonText}>Guardar</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+  const handleSubmit = useCallback(() => {
+    const nameError = validateText(productFormData.name, "nombre");
+    const descriptionError = validateText(
+      productFormData.description,
+      "descripcion",
     );
-}
+    const priceError = validatePrice(productFormData.price, "precio");
+    const imageError = validateImage(productFormData.imageUri);
 
+    setErrors({
+      name: nameError,
+      description: descriptionError,
+      price: priceError,
+      imageUri: imageError,
+    });
+
+    if (!nameError && !descriptionError && !priceError && !imageError) {
+      setModalMessage("Alimento creado correctamente");
+      setIsModalVisible(true);
+    }
+  }, [productFormData]);
+
+  return (
+    <BasicLayout>
+      <BasicModal
+        message={modalMessage}
+        visible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+        primaryButtonText="Aceptar"
+        onPrimaryButtonPress={() => {
+          setIsModalVisible(false);
+          return navigation.goBack();
+        }}
+      />
+      <View style={styles.container}>
+        <View style={styles.form}>
+          <AppBar
+            leftIcon="chevron-back"
+            onLeftPress={() => navigation.goBack()}
+            title="Crear alimento"
+          />
+          <TextField
+            label="Nombre"
+            value={productFormData.name}
+            placeholder="Hamburguesa doble"
+            onChange={handleNameChange}
+            errorMessage={errors.name}
+          />
+
+          <TextField
+            label="Descripción"
+            value={productFormData.description}
+            placeholder="Comida deliciosa, etc."
+            onChange={handleDescriptionChange}
+            errorMessage={errors.description}
+          />
+
+          <TextField
+            label="Precio"
+            value={productFormData.price}
+            placeholder="$90.00"
+            onChange={handlePriceChange}
+            errorMessage={errors.price}
+          />
+
+          <ImageField
+            label="Imagen"
+            fileValueUrl={productFormData.imageUri}
+            onChange={handleImageChange}
+            errorMessage={errors.imageUri}
+          />
+        </View>
+
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="Cancelar"
+            backgroundColor={colors.white}
+            textColor={colors.gray}
+            width={"45%"}
+            handlePress={() => navigation.goBack()}
+          />
+          <Button
+            text="Guardar"
+            backgroundColor={colors.primary}
+            textColor={colors.white}
+            width={"45%"}
+            handlePress={handleSubmit}
+          />
+        </View>
+      </View>
+    </BasicLayout>
+  );
+};
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F3F3F7',
-    },
-    scrollContainer: {
-        flexGrow: 1,
-        justifyContent: 'flex-start',
-    },
-    form: {
-        borderRadius: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingVertical: 20,
-        shadowColor: '#444',
-        shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
-        elevation: 5,
-    },
-    label: {
-        fontSize: 18,
-        fontWeight: '500',
-        marginBottom: 10, // Reduce el espacio inferior
-        color: '#555',
-    },
-    input: {
-        paddingVertical: 10,
-        borderBottomColor: 'black',
-        borderBottomWidth: 0.5,
-        marginBottom: 25, // Reduce el espacio inferior
-        fontWeight: '500',
-        fontSize: 17
-    },
-    inputArea: {
-        paddingTop: 2,
-    },
-    textArea: {
-        height: 42,
-    },
-    imageButton: {
-        height: 200,
-        borderColor: '#000',
-        borderWidth: 1,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 30,
-        backgroundColor: '#fff',
-    },
-    imageButtonText: {
-        fontSize: 16,
-        color: '#888',
-    },
-    image: {
-        width: '80%',
-        height: '80%',
-        borderRadius: 10,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent:'space-evenly'
-    },
-    cancelButton: {
-        backgroundColor:'white',
-        borderRadius: 30,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        justifyContent:'center',
-        alignContent:'center'
-    },
-    cancelButtonText: {
-        fontSize: 18,
-        color: '#888',
-        fontWeight: '700',
-    },
-    saveButton: {
-        backgroundColor: '#439288',
-        borderRadius: 30,
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-    },
-    saveButtonText: {
-        fontSize: 16,
-        color: '#FFFFFF',
-        fontWeight: '700'
-    },
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  form: {
+    gap: 20,
+    borderRadius: 10,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
+export default UpdateMealScreen;
