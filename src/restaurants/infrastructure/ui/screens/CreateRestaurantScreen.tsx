@@ -75,15 +75,15 @@ const CreateRestaurantScreen = ({
     const nameError = validateText(restaurantFormData.name, "nombre");
     const locationError = validateText(
       restaurantFormData.location,
-      "direccion",
+      "direccion"
     );
     const openingTimeError = validateTime(
       restaurantFormData.openingTime,
-      "hora de apertura",
+      "hora de apertura"
     );
     const closingTimeError = validateTime(
       restaurantFormData.closingTime,
-      "hora de cierre",
+      "hora de cierre"
     );
     const imageError = validateImage(restaurantFormData.imageUri);
 
@@ -110,7 +110,11 @@ const CreateRestaurantScreen = ({
     <BasicLayout>
       <View style={styles.container}>
         <View style={styles.formContainer}>
-          <AppBar leftIcon="chevron-back" title="Crear restaurante" />
+          <AppBar
+            leftIcon="chevron-back"
+            onLeftPress={() => navigation.goBack()}
+            title="Crear restaurante"
+          />
           <ScrollView
             contentContainerStyle={styles.fieldsContainer}
             showsVerticalScrollIndicator={false}
