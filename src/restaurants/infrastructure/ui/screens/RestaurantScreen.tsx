@@ -137,7 +137,10 @@ const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
         </View>
         <View>
           <Text style={styles.headerText}>Alimentos</Text>
-          <ScrollView contentContainerStyle={styles.productsContainer}>
+          <ScrollView
+            contentContainerStyle={styles.productsContainer}
+            showsVerticalScrollIndicator={false}
+          >
             {productos.map((producto) => (
               <ProductItemCard
                 key={producto.id}
@@ -195,9 +198,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary,
   },
   productsContainer: {
-    justifyContent: "center",
-    width: "100%",
-    height: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 20,
