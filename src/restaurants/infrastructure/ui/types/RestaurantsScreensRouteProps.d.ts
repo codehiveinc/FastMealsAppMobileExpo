@@ -1,3 +1,4 @@
+import { MealDetailAdminScreen } from "@/restaurants/infrastructure/ui/screens/MealDetailAdminScreen";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type SearchScreenRouteProps = NativeStackScreenProps<
@@ -28,4 +29,14 @@ export type CreateRestaurantScreenRouteProps = NativeStackScreenProps<
 export type CreateMealScreenRouteProps = NativeStackScreenProps<
   RootStackParamList,
   "CreateMealScreen"
+>;
+
+export type MealDetailAdminScreenRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "MealDetailAdminScreen"
+>;
+
+export type MyMealsScreenRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "MyMealsScreen"
 >;

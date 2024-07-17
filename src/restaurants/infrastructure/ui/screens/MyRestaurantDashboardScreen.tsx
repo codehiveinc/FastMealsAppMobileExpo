@@ -13,7 +13,7 @@ const userSections = [
   },
   {
     title: "Productos",
-    //routeName: "EditMealScreen",
+    routeName: "MyMealsScreen",
   },
 ];
 
