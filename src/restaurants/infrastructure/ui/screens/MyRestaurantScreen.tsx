@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { MyRestaurantScreenRouteProps } from "@/users/infrastructure/ui/types/UsersScreensRouteProps";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
@@ -17,11 +17,10 @@ const userSections = [
   },
 ];
 
-const MyRestaurantDashboardScreen = ({
-  navigation,
-}: MyRestaurantScreenRouteProps) => {
+const MyRestaurantScreen = ({ navigation }: MyRestaurantScreenRouteProps) => {
+  // TODO: Agregar opcion para cambiar la informacion del restaurante
   const handleChangeUserInformation = () => {
-    navigation.navigate("UpdateUserScreen");
+    // navigation.navigate("UpdateRestaurantScreen");
   };
 
   const renderUserSections = () => {
@@ -46,9 +45,9 @@ const MyRestaurantDashboardScreen = ({
         <View style={styles.subheaderContainer}>
           <View style={styles.infoHeaderContainer}>
             <Text style={styles.subheaderText}>Detalles del negocio</Text>
-            <TouchableOpacity onPress={() => handleChangeUserInformation()}>
+            {/* <TouchableOpacity onPress={() => handleChangeUserInformation()}>
               <Text style={styles.changeInfoText}>Cambiar</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.infoImgContainer}>
@@ -144,4 +143,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyRestaurantDashboardScreen;
+export default MyRestaurantScreen;
