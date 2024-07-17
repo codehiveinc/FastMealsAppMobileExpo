@@ -17,7 +17,7 @@ interface Product {
 
 const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
   const handlePress = () => {
-    navigation.navigate("PaymentsScreen");
+    navigation.navigate("PaymentScreen");
   };
   const [products, setProducts] = useState<Product[]>([
     {
