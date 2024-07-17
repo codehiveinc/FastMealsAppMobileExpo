@@ -1,5 +1,5 @@
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { ProductItemCard } from "../components/ProductItemCard";
 import { MyMealsScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
