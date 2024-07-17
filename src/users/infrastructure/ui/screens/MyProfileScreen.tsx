@@ -1,4 +1,3 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MyProfileScreenRouteProps } from "../types/UsersScreensRouteProps";
 import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
@@ -20,7 +19,7 @@ const userSections = [
 const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
   const handleChangeUserInformation = () => {
     navigation.navigate("UpdateUserScreen");
-  }
+  };
 
   const renderUserSections = () => {
     return userSections.map((section) => (
