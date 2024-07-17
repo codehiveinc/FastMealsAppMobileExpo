@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { PaymentsScreenRouteProps } from "../types/PaymentsScreenRouteProps";
+import { PaymentsScreenRouteProps as PaymentScreenRouteProps } from "../types/PaymentsScreenRouteProps";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
@@ -34,7 +34,7 @@ const shippingMethods = [
   },
 ];
 
-const PaymentsScreen = ({ navigation }: PaymentsScreenRouteProps) => {
+const PaymentScreen = ({ navigation }: PaymentScreenRouteProps) => {
   const [selectedMenuOption, setSelectedMenuOption] = useState(0);
   const [selectedOrderOption, setSelectedOrderOption] = useState({
     shippingMethod: "pickup",
@@ -57,8 +57,6 @@ const PaymentsScreen = ({ navigation }: PaymentsScreenRouteProps) => {
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
       quality: 1,
     });
 
@@ -207,7 +205,6 @@ const PaymentsScreen = ({ navigation }: PaymentsScreenRouteProps) => {
                         </View>
                         <View style={styles.sectionBodyContainer}>
                           <View style={styles.sectionContainer}>
-                            {/* agregar si hay imagen cargada o no */}
                             <View>
                               <Text style={styles.infoText}>
                                 {selectedOrderOption.transferVoucherUri
@@ -334,4 +331,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PaymentsScreen;
+export default PaymentScreen;
