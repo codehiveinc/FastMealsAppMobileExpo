@@ -11,6 +11,10 @@ const userSections = [
     routeName: "MyRestaurantsScreen",
   },
   {
+    title: "Crear restaurante",
+    routeName: "CreateRestaurantScreen",
+  },
+  {
     title: "Politica de privacidad",
     routeName: "PrivacyPolicyScreen",
   },
