@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
-import { MealDetailScreenRouteProps } from "@/restaurants/infrastructure/ui/types/RestaurantsScreensRouteProps";
+import { MealDetailAdminScreenRouteProps } from "@/restaurants/infrastructure/ui/types/RestaurantsScreensRouteProps";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
 import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
 
-const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
+const MealDetailAdminScreen = ({
+  navigation,
+}: MealDetailAdminScreenRouteProps) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [modalMessage, setModalMessage] = React.useState("");
 
@@ -109,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MealDetailScreen;
+export default MealDetailAdminScreen;
