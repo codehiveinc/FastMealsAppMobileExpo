@@ -1,7 +1,10 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Avatars from "@assets/images/avatars.png";
 import { GetStartedScreenRouteProps } from "../types/HomeScreensRouteProps";
+import { colors } from "@/shared/infrastructure/ui/consts/colors";
+import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
+import Button from "@/shared/infrastructure/ui/components/Button";
 
 const GetStartedScreen = ({ navigation }: GetStartedScreenRouteProps) => {
   const handlePress = () => {
@@ -18,9 +21,13 @@ const GetStartedScreen = ({ navigation }: GetStartedScreenRouteProps) => {
         <Image source={Avatars} />
       </View>
       <View style={styles.bottomContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress()}>
-          <Text style={styles.buttonText}>Comenzar</Text>
-        </TouchableOpacity>
+        <Button
+          text="Comenzar"
+          backgroundColor={colors.white}
+          textColor={colors.black}
+          handlePress={handlePress}
+          width={"70%"}
+        />
       </View>
     </SafeAreaView>
   );
@@ -29,7 +36,7 @@ const GetStartedScreen = ({ navigation }: GetStartedScreenRouteProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0D9488",
+    backgroundColor: colors.primary,
   },
   headerContainer: {
     paddingHorizontal: 40,
@@ -48,24 +55,12 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 50,
-    backgroundColor: "white",
+    backgroundColor: colors.white,
   },
   headerMessage: {
     fontSize: 40,
     fontWeight: "bold",
-    fontFamily: "Poppins-Regular",
-  },
-  button: {
-    backgroundColor: "#FFFFFF",
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    borderRadius: 30,
-    alignItems: "center",
-    width: "70%",
-  },
-  buttonText: {
-    fontSize: 16,
-    color: "#000000",
+    fontFamily: fonts.primary,
   },
 });
 

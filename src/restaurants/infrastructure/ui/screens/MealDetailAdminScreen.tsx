@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
-import { MealDetailScreenRouteProps } from "@/restaurants/infrastructure/ui/types/RestaurantsScreensRouteProps";
+import { MealDetailAdminScreenRouteProps } from "@/restaurants/infrastructure/ui/types/RestaurantsScreensRouteProps";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
 import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
 
-const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
+const MealDetailAdminScreen = ({
+  navigation,
+}: MealDetailAdminScreenRouteProps) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [modalMessage, setModalMessage] = React.useState("");
 
@@ -16,7 +18,7 @@ const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
     setIsModalVisible(false);
   };
 
-  const handleAddToCart = () => {
+  const handleDeleteMeal = () => {
     setModalMessage("Alimento agregado al carrito");
     setIsModalVisible(true);
   };
@@ -30,9 +32,11 @@ const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
         onPrimaryButtonPress={disableModal}
       />
       <AppBar
+        title="Detalles del platillo"
         leftIcon="chevron-back"
         onLeftPress={() => navigation.goBack()}
-        title="Detalles del platillo"
+        rightIcon="create-outline"
+        onRightPress={() => navigation.navigate("UpdateMealScreen")}
       />
 
       <View style={styles.container}>
@@ -57,9 +61,9 @@ const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
         </View>
       </View>
       <Button
-        text="Agregar al carrito"
-        handlePress={handleAddToCart}
-        backgroundColor={colors.primary}
+        text="Eliminar Producto"
+        handlePress={handleDeleteMeal}
+        backgroundColor={colors.error}
         textColor={colors.white}
         width={"100%"}
       />
@@ -107,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MealDetailScreen;
+export default MealDetailAdminScreen;

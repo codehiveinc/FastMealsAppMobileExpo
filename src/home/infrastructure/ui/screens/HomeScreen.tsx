@@ -1,17 +1,17 @@
 import { StyleSheet, ScrollView, View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import RestaurantCard from "../components/RestaurantCard";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { HomeScreenRouteProps } from "../types/HomeScreensRouteProps";
+import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
 
 const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
   const handlePress = () => {
     navigation.navigate("RestaurantScreen");
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <BasicTabLayout>
       <AppBar
-        rightIcon="search" 
+        rightIcon="search"
         onRightPress={() => navigation.navigate("SearchScreen")}
       />
       <View style={styles.containerMessage}>
@@ -29,7 +29,6 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
             imageUrl="https://via.placeholder.com/350"
             name="Restaurant 1"
             onPressButton={() => handlePress()}
-
           />
           <RestaurantCard
             imageUrl="https://via.placeholder.com/350"
@@ -43,16 +42,11 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
           />
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </BasicTabLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 45,
-  },
   scrollContainer: {
     marginHorizontal: -45,
   },

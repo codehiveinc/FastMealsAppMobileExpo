@@ -1,225 +1,201 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, Alert } from 'react-native';
-import { NavigationProp } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import AppBar from '@/shared/infrastructure/ui/components/AppBar';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { View, StyleSheet, ScrollView } from "react-native";
+import AppBar from "@/shared/infrastructure/ui/components/AppBar";
+import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
+import Button from "@/shared/infrastructure/ui/components/Button";
+import { colors } from "@/shared/infrastructure/ui/consts/colors";
+import { CreateRestaurantScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
+import { useCallback, useState } from "react";
+import {
+  validateImage,
+  validateText,
+  validateTime,
+} from "@/shared/infrastructure/ui/validations/validations";
+import { TextField } from "@/shared/infrastructure/ui/components/TextField";
+import ImageField from "@/shared/infrastructure/ui/components/ImageField";
 
-const CreateRestaurantScreen = ({navigation}: {navigation: NavigationProp<any>})=>{
+const CreateRestaurantScreen = ({
+  navigation,
+}: CreateRestaurantScreenRouteProps) => {
+  const [restaurantFormData, setRestaurantFormData] = useState({
+    name: "",
+    location: "",
+    openingTime: "",
+    closingTime: "",
+    imageUri: "",
+  });
+  const [errors, setErrors] = useState({
+    name: "",
+    location: "",
+    openingTime: "",
+    closingTime: "",
+    imageUri: "",
+  });
 
-    const [name, setName]= useState('')
-    const [location, setLocation] = useState('')
-    const [email, setEmail] = useState('')
-    const [openingTime, setOpeningTime] = useState<string>('')
-    const [closingTime, setClosingTime] = useState<string>('')
-    const [values, setValues] = useState<{ [key: string]: string }>({
-        openingTime: '',
-        closingTime: '',
-      });
-      const [errors, setErrors] = useState<{ [key: string]: string }>({
-        openingTime: '',
-        closingTime: '',
-      });
-    
+  const handleNameChange = (name: string) => {
+    setRestaurantFormData((prev) => ({ ...prev, name }));
+    setErrors((prev) => ({
+      ...prev,
+      name: validateText(name, "nombre"),
+    }));
+  };
 
-    const handleSubmit = async() =>{
-        if(!name || !location || !email || !openingTime || !closingTime){
-            Alert.alert('Todos los campos son obligatorios')
-            return;
-        }
+  const handleLocationChange = (location: string) => {
+    setRestaurantFormData((prev) => ({ ...prev, location }));
+    setErrors((prev) => ({
+      ...prev,
+      location: validateText(location, "direccion"),
+    }));
+  };
+
+  const handleOpeningTimeChange = (openingTime: string) => {
+    setRestaurantFormData((prev) => ({ ...prev, openingTime }));
+    setErrors((prev) => ({
+      ...prev,
+      openingTime: validateTime(openingTime, "hora de apertura"),
+    }));
+  };
+
+  const handleClosingTimeChange = (closingTime: string) => {
+    setRestaurantFormData((prev) => ({ ...prev, closingTime }));
+    setErrors((prev) => ({
+      ...prev,
+      closingTime: validateTime(closingTime, "hora de cierre"),
+    }));
+  };
+
+  const handleImageChange = async (uri: string) => {
+    setRestaurantFormData({ ...restaurantFormData, imageUri: uri });
+    setErrors((prev) => ({
+      ...prev,
+      imageUri: validateImage(uri),
+    }));
+  };
+
+  const handleSubmit = useCallback(() => {
+    const nameError = validateText(restaurantFormData.name, "nombre");
+    const locationError = validateText(
+      restaurantFormData.location,
+      "direccion"
+    );
+    const openingTimeError = validateTime(
+      restaurantFormData.openingTime,
+      "hora de apertura"
+    );
+    const closingTimeError = validateTime(
+      restaurantFormData.closingTime,
+      "hora de cierre"
+    );
+    const imageError = validateImage(restaurantFormData.imageUri);
+
+    setErrors({
+      name: nameError,
+      location: locationError,
+      openingTime: openingTimeError,
+      closingTime: closingTimeError,
+      imageUri: imageError,
+    });
+
+    if (
+      !nameError &&
+      !locationError &&
+      !openingTimeError &&
+      !closingTimeError &&
+      !imageError
+    ) {
+      // Lógica para guardar el restaurante
     }
-    const handleChange = (name: string, text: string): void => {
-        const updatedValues = { ...values };
-        let error = '';
-    
-        const numericValue = text.replace(/[^0-9:]/g, '');
-        updatedValues[name] = numericValue;
-    
-        const timeParts = numericValue.split(':');
-        const hours = parseInt(timeParts[0], 10);
-        const minutes = timeParts.length > 1 ? parseInt(timeParts[1], 10) : 0;
-    
-        if (numericValue.length === 0) {
-          error = 'Este campo no puede estar vacío.';
-        } else if (
-          timeParts.length > 2 ||
-          isNaN(hours) ||
-          hours < 0 ||
-          hours > 23 ||
-          (timeParts.length > 1 && (isNaN(minutes) || minutes < 0 || minutes > 59))
-        ) {
-          error = 'Ingrese una hora válida (HH:MM).';
-        }
-    
-        setValues(updatedValues);
-        setErrors({ ...errors, [name]: error });
-      };
-    /*const handleTimeChange = (time) =>{
-        setShowTimePicker(false);
-        if(time){
-            const selectedMoment = moment(time, 'HH:mm');
-            const [startHour, endHour] = 
-        }
-    }
-    */
-    return(
-        <SafeAreaView style={styles.container}>
-            <AppBar leftIcon='chevron-back' title='Crear restaurante' />
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <View style={styles.form}>
-                    <Text style={styles.label}>Nombre</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Nombre"
-                        placeholderTextColor={'#888'}
-                        value={name}
-                        onChangeText={setName}
-                    />
+  }, [restaurantFormData]);
 
-                    <Text style={styles.label}>Direccion</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Direccion"
-                        placeholderTextColor={'#888'}
-                        value={location}
-                        onChangeText={setLocation}
-                        
-                    />
-                    <Text style={styles.label}>Email</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email"
-                        placeholderTextColor={'#888'}
-                        value={email}
-                        onChangeText={setEmail}
-                        
-                    />
-                    <Text style={styles.label}>Hora de apertura</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Formato 24hrs"
-                        placeholderTextColor={'#888'}
-                        value={values.openingTime}
-                        onChangeText={(text) => handleChange('openingTime', text)}
-                        keyboardType='default'
-                    />
-                    {errors.openingTime ? <Text style={styles.errorText}>{errors.openingTime}</Text> : null}
-                    <Text style={styles.label}>Hora de cierre</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Formato 24hrs"
-                        placeholderTextColor={'#888'}
-                        value={values.closingTime}
-                        onChangeText={(text) => handleChange('closingTime', text)}
-                        keyboardType='default'
-                    />
-                    {errors.closingTime ? <Text style={styles.errorText}>{errors.closingTime}</Text> : null}
-                    
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
-                            <Text style={styles.cancelButtonText}>Cancelar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
-                            <Text style={styles.saveButtonText}>Guardar</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    );    
-}
+  return (
+    <BasicLayout>
+      <View style={styles.container}>
+        <View style={styles.formContainer}>
+          <AppBar
+            leftIcon="chevron-back"
+            onLeftPress={() => navigation.goBack()}
+            title="Crear restaurante"
+          />
+          <ScrollView
+            contentContainerStyle={styles.fieldsContainer}
+            showsVerticalScrollIndicator={false}
+          >
+            <TextField
+              label="Nombre"
+              value={restaurantFormData.name}
+              placeholder="Nombre"
+              onChange={handleNameChange}
+              errorMessage={errors.name}
+            />
+
+            <TextField
+              label="Direccion"
+              value={restaurantFormData.location}
+              placeholder="Direccion"
+              onChange={handleLocationChange}
+              errorMessage={errors.location}
+            />
+
+            <TextField
+              label="Hora de apertura"
+              value={restaurantFormData.openingTime}
+              placeholder="Hora de apertura"
+              onChange={handleOpeningTimeChange}
+              errorMessage={errors.openingTime}
+            />
+
+            <TextField
+              label="Hora de cierre"
+              value={restaurantFormData.closingTime}
+              placeholder="Hora de cierre"
+              onChange={handleClosingTimeChange}
+              errorMessage={errors.closingTime}
+            />
+
+            <ImageField
+              label="Imagen"
+              fileValueUrl={restaurantFormData.imageUri}
+              onChange={handleImageChange}
+              errorMessage={errors.imageUri}
+            />
+          </ScrollView>
+        </View>
+
+        <View style={styles.buttonsContainer}>
+          <Button
+            text="Cancelar"
+            backgroundColor={colors.white}
+            textColor={colors.gray}
+            width={"45%"}
+            handlePress={() => navigation.goBack()}
+          />
+          <Button
+            text="Guardar"
+            backgroundColor={colors.primary}
+            textColor={colors.white}
+            width={"45%"}
+            handlePress={handleSubmit}
+          />
+        </View>
+      </View>
+    </BasicLayout>
+  );
+};
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F3F3F7',
-    },
-    scrollContainer: {
-        flexGrow: 1,
-        justifyContent: 'flex-start',
-    },
-    form: {
-        borderRadius: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingVertical: 20,
-        shadowColor: '#444',
-        shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
-        elevation: 5,
-    },
-    label: {
-        fontSize: 18,
-        fontWeight: '500',
-        marginBottom: 10, // Reduce el espacio inferior
-        color: '#555',
-    },
-    input: {
-        paddingVertical: 10,
-        borderBottomColor: 'black',
-        borderBottomWidth: 0.5,
-        marginBottom: 25, // Reduce el espacio inferior
-        fontWeight: '500',
-        fontSize: 17
-    },
-    inputArea: {
-        paddingTop: 2,
-    },
-    textArea: {
-        height: 42,
-    },
-    errorText: {
-        color: 'red',
-        marginTop:-10,
-    },
-    imageButton: {
-        height: 200,
-        borderColor: '#000',
-        borderWidth: 1,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 30,
-        backgroundColor: '#fff',
-    },
-    imageButtonText: {
-        fontSize: 16,
-        color: '#888',
-    },
-    image: {
-        width: '80%',
-        height: '80%',
-        borderRadius: 10,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent:'space-evenly'
-    },
-    cancelButton: {
-        backgroundColor:'white',
-        borderRadius: 30,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        justifyContent:'center',
-        alignContent:'center'
-    },
-    cancelButtonText: {
-        fontSize: 18,
-        color: '#888',
-        fontWeight: '700',
-    },
-    saveButton: {
-        backgroundColor: '#439288',
-        borderRadius: 30,
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-    },
-    saveButtonText: {
-        fontSize: 16,
-        color: '#FFFFFF',
-        fontWeight: '700'
-    },
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  formContainer: {
+    height: "90%",
+  },
+  fieldsContainer: {
+    gap: 20,
+  },
+  buttonsContainer: {
+    height: "8%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
-
 
 export default CreateRestaurantScreen;

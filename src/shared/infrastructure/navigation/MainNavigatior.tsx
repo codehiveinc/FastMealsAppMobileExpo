@@ -10,14 +10,15 @@ import MealDetailScreen from "@/restaurants/infrastructure/ui/screens/MealDetail
 import OrderScreen from "@/orders/infrastructure/ui/Screens/OrderScreen";
 import UpdateMealScreen from "@/restaurants/infrastructure/ui/screens/UpdateMealScreen";
 import CreateMealScreen from "@/restaurants/infrastructure/ui/screens/CreateMealScreen";
-import UpdateUserScreen from "@/users/infrastructure/ui/UpdateUserScreen";
 import CreateRestaurantScreen from "@/restaurants/infrastructure/ui/screens/CreateRestaurantScreen";
-import MyRestaurantScreen from "@/users/infrastructure/ui/screens/MyRestaurantScreen";
-import EditMealScreen from "@/users/infrastructure/ui/screens/EditMealScreen";
-import PaymentsScreen from "@/payment/infrastructure/ui/screens/PaymentsScreen";
 import PaymentMethodScreen from "@/payment/infrastructure/ui/screens/PaymentMethodScreen";
 import MyRestaurantsScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantsScreen";
 import RootStackParamList from "../ui/types/RootStackParamList";
+import UpdateUserScreen from "@/users/infrastructure/ui/screens/UpdateUserScreen";
+import PaymentScreen from "@/payment/infrastructure/ui/screens/PaymentScreen";
+import MealDetailAdminScreen from "@/restaurants/infrastructure/ui/screens/MealDetailAdminScreen";
+import MyMealsScreen from "@/restaurants/infrastructure/ui/screens/MyMealsScreen";
+import MyRestaurantScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -50,8 +51,11 @@ const MainNavigator = () => {
           name="MyRestaurantScreen"
           component={MyRestaurantScreen}
         />
-        <Stack.Screen name="EditMealScreen" component={EditMealScreen} />
-        <Stack.Screen name="PaymentsScreen" component={PaymentsScreen} />
+        <Stack.Screen
+          name="MealDetailAdminScreen"
+          component={MealDetailAdminScreen}
+        />
+        <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
         <Stack.Screen
           name="PaymentMethodScreen"
           component={PaymentMethodScreen}
@@ -60,6 +64,7 @@ const MainNavigator = () => {
           name="MyRestaurantsScreen"
           component={MyRestaurantsScreen}
         />
+        <Stack.Screen name="MyMealsScreen" component={MyMealsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

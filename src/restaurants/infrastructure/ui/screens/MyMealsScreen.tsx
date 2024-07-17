@@ -1,17 +1,8 @@
-import {
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { useState } from "react";
-import { SearchScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
-import { Ionicons } from "@expo/vector-icons";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
-import { colors } from "@/shared/infrastructure/ui/consts/colors";
-import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
+import { ScrollView, StyleSheet } from "react-native";
 import { ProductItemCard } from "../components/ProductItemCard";
+import { MyMealsScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
+import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 
 const productos = [
   {
@@ -112,48 +103,26 @@ const productos = [
   },
 ];
 
-const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
-  const [search, setSearch] = useState("");
-
-  const filteredProductos = productos.filter((producto) =>
-    producto.title.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  const handlePress = () => {
-    navigation.goBack();
-  };
-
+const MyMealsScreen = ({ navigation }: MyMealsScreenRouteProps) => {
   return (
-    <BasicLayout backgroundColor={colors.white}>
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TouchableOpacity onPress={handlePress}>
-            <Ionicons name="chevron-back" size={30} />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Buscar productos"
-            value={search}
-            onChangeText={setSearch}
-            autoFocus
+    <BasicLayout>
+      <AppBar
+        leftIcon="chevron-back"
+        onLeftPress={() => navigation.goBack()}
+        title="Mis comidas"
+      />
+      <ScrollView contentContainerStyle={styles.productsContainer}>
+        {productos.map((producto) => (
+          <ProductItemCard
+            key={producto.id}
+            title={producto.title}
+            price={producto.price}
+            image={producto.image}
+            width={"40%"}
+            onPress={() => navigation.navigate("MealDetailAdminScreen")}
           />
-        </View>
-        <ScrollView
-          contentContainerStyle={styles.productsContainer}
-          showsVerticalScrollIndicator={false}
-        >
-          {filteredProductos.map((producto) => (
-            <ProductItemCard
-              key={producto.id}
-              title={producto.title}
-              price={producto.price}
-              image={producto.image}
-              width={"40%"}
-              onPress={() => navigation.navigate("MealDetailScreen")}
-            />
-          ))}
-        </ScrollView>
-      </View>
+        ))}
+      </ScrollView>
     </BasicLayout>
   );
 };
@@ -161,30 +130,12 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 20,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    height: "7%",
-  },
-  searchInput: {
-    fontFamily: fonts.primary,
-    backgroundColor: "#EEEEEE",
-    width: "80%",
-    height: "100%",
-    paddingHorizontal: 10,
-    fontSize: 16,
-    borderRadius: 25,
   },
   productsContainer: {
-    justifyContent: "center",
-    width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 20,
+    justifyContent: "space-between",
   },
 });
 
-export default SearchScreen;
+export default MyMealsScreen;
