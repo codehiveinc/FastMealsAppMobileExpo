@@ -101,7 +101,11 @@ const CreateMealScreen = ({ navigation }: CreateMealScreenRouteProps) => {
       />
       <View style={styles.container}>
         <View style={styles.form}>
-          <AppBar leftIcon="chevron-back" title="Crear alimento" />
+          <AppBar
+            leftIcon="chevron-back"
+            onLeftPress={() => navigation.goBack()}
+            title="Crear alimento"
+          />
           <TextField
             label="Nombre"
             value={productFormData.name}
