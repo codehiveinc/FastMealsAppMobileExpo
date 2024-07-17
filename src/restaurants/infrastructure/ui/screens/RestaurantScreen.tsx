@@ -4,7 +4,7 @@ import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
-import ProductItem from "../components/ProductItemCard";
+import { ProductItemCard } from "../components/ProductItemCard";
 
 const productos = [
   {
@@ -139,7 +139,7 @@ const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
           <Text style={styles.headerText}>Alimentos</Text>
           <ScrollView contentContainerStyle={styles.productsContainer}>
             {productos.map((producto) => (
-              <ProductItem
+              <ProductItemCard
                 key={producto.id}
                 title={producto.title}
                 price={producto.price}
