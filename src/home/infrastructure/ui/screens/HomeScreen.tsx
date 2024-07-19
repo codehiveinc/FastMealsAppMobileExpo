@@ -3,6 +3,7 @@ import RestaurantCard from "../components/RestaurantCard";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { HomeScreenRouteProps } from "../types/HomeScreensRouteProps";
 import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
+import { restaurantItems } from "@/database";
 
 const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
   const handlePress = () => {
@@ -25,21 +26,14 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
           showsHorizontalScrollIndicator={false}
           horizontal={true}
         >
-          <RestaurantCard
-            imageUrl="https://via.placeholder.com/350"
-            name="Restaurant 1"
-            onPressButton={() => handlePress()}
-          />
-          <RestaurantCard
-            imageUrl="https://via.placeholder.com/350"
-            name="Restaurant 1"
-            onPressButton={() => console.log("Button pressed")}
-          />
-          <RestaurantCard
-            imageUrl="https://via.placeholder.com/350"
-            name="Restaurant 1"
-            onPressButton={() => console.log("Button pressed")}
-          />
+          {restaurantItems.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.id}
+              imageUrl={restaurant.imageUrl}
+              name={restaurant.name}
+              onPressButton={() => handlePress()}
+            />
+          ))}
         </ScrollView>
       </View>
     </BasicTabLayout>

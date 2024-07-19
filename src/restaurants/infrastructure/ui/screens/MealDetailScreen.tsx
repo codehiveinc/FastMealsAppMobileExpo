@@ -7,6 +7,7 @@ import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
 import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
+import { foodItem } from "@/database";
 
 const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
@@ -38,10 +39,10 @@ const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
       <View style={styles.container}>
         <Image
           style={styles.image}
-          source={{ uri: "https://via.placeholder.com/300" }} // reemplaza con la URL de tu imagen
+          source={{ uri: foodItem.imageUrl }} // reemplaza con la URL de tu imagen
         />
-        <Text style={styles.title}>Veggie tomato mifasd asdf dsafx</Text>
-        <Text style={styles.price}>$1,900</Text>
+        <Text style={styles.title}>{foodItem.title}</Text>
+        <Text style={styles.price}>{foodItem.price}</Text>
         <View style={styles.infoContainer}>
           <Text style={styles.infoTitle}>Información de entrega</Text>
           <Text style={styles.infoText}>

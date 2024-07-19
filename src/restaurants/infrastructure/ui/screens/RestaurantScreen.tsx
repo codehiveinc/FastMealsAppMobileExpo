@@ -5,105 +5,7 @@ import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { ProductItemCard } from "../components/ProductItemCard";
-
-const productos = [
-  {
-    id: 1,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 2,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 3,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 4,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 5,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 6,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 7,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 8,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 9,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 10,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 11,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 12,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 13,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 14,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 15,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 16,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-];
+import { foodItems, restaurantItem } from "@/database";
 
 const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
   const handlePressDetail = () => {
@@ -125,14 +27,17 @@ const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
         <View style={styles.restaurantInfoCard}>
           <Image
             style={styles.restauranImg}
-            source={{ uri: "https://via.placeholder.com/300" }}
+            source={{ uri: restaurantItem.imageUrl }}
           />
           <View style={styles.infoTextContainer}>
-            <Text style={styles.infoTextHeader}>La casa de las pizzas</Text>
+            <Text style={styles.infoTextHeader}>{restaurantItem.name}</Text>
             <Text style={styles.infoTextSubheader}>
-              Dirección: Av. Central C.P. 29049
+              Dirección: {restaurantItem.address}
             </Text>
-            <Text style={styles.infoTextSubheader}>Horario: 10:00 - 18:00</Text>
+            <Text style={styles.infoTextSubheader}>
+              Horario: {restaurantItem.openingTime} -{" "}
+              {restaurantItem.closingTime}
+            </Text>
           </View>
         </View>
         <View>
@@ -141,12 +46,12 @@ const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
             contentContainerStyle={styles.productsContainer}
             showsVerticalScrollIndicator={false}
           >
-            {productos.map((producto) => (
+            {foodItems.map((producto) => (
               <ProductItemCard
                 key={producto.id}
                 title={producto.title}
                 price={producto.price}
-                image={producto.image}
+                image={producto.imageUrl}
                 width={"40%"}
                 onPress={handlePressDetail}
               />
