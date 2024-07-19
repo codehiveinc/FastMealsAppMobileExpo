@@ -3,105 +3,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { ProductItemCard } from "../components/ProductItemCard";
 import { MyMealsScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
-
-const productos = [
-  {
-    id: 1,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 2,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 3,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 4,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 5,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 6,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 7,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 8,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 9,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 10,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 11,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 12,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 13,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 14,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 15,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 16,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-];
+import { foodItems } from "@/database";
 
 const MyMealsScreen = ({ navigation }: MyMealsScreenRouteProps) => {
   return (
@@ -111,13 +13,16 @@ const MyMealsScreen = ({ navigation }: MyMealsScreenRouteProps) => {
         onLeftPress={() => navigation.goBack()}
         title="Mis comidas"
       />
-      <ScrollView contentContainerStyle={styles.productsContainer}>
-        {productos.map((producto) => (
+      <ScrollView
+        contentContainerStyle={styles.productsContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        {foodItems.map((food) => (
           <ProductItemCard
-            key={producto.id}
-            title={producto.title}
-            price={producto.price}
-            image={producto.image}
+            key={food.id}
+            title={food.title}
+            price={food.price}
+            image={food.imageUrl}
             width={"40%"}
             onPress={() => navigation.navigate("MealDetailAdminScreen")}
           />

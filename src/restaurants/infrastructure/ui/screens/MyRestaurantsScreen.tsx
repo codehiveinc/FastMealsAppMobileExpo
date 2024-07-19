@@ -3,34 +3,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { MyRestaurantsScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
 import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import RestaurantOption from "../components/RestaurantOption";
-
-const restaurants = [
-  {
-    id: "1",
-    name: "Restaurante los aguacates asdf dsaf",
-    image: "https://via.placeholder.com/350",
-  },
-  {
-    id: "2",
-    name: "Restaurante los aguacates asdf dsaf",
-    image: "https://via.placeholder.com/350",
-  },
-  {
-    id: "3",
-    name: "Restaurante los aguacates asdf dsaf",
-    image: "https://via.placeholder.com/350",
-  },
-  {
-    id: "4",
-    name: "Restaurante los aguacates asdf dsaf",
-    image: "https://via.placeholder.com/350",
-  },
-  {
-    id: "5",
-    name: "Restaurante los aguacates asdf dsaf",
-    image: "https://via.placeholder.com/350",
-  },
-];
+import { restaurantItems } from "@/database";
 
 const MyRestaurantsScreen = ({ navigation }: MyRestaurantsScreenRouteProps) => {
   const goBack = () => {
@@ -41,24 +14,30 @@ const MyRestaurantsScreen = ({ navigation }: MyRestaurantsScreenRouteProps) => {
     navigation.navigate("MyRestaurantScreen");
   };
 
+  const handlePressCreateRestaurant = () => {
+    navigation.navigate("CreateRestaurantScreen");
+  };
+
   return (
     <BasicLayout>
       <AppBar
         leftIcon="chevron-back"
         onLeftPress={() => goBack()}
         title="Mis Restaurantes"
+        rightIcon="add"
+        onRightPress={handlePressCreateRestaurant}
       />
 
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
-        style={{ overflow: "visible" }}
+        showsVerticalScrollIndicator={false}
       >
-        {restaurants.map((restaurant) => (
+        {restaurantItems.map((restaurant) => (
           <RestaurantOption
             key={restaurant.id}
             handlePress={handlePressRestaurant}
             restaurantName={restaurant.name}
-            restaurantImageUrl={restaurant.image}
+            restaurantImageUrl={restaurant.imageUrl}
           />
         ))}
       </ScrollView>

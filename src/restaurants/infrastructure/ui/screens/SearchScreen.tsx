@@ -12,110 +12,12 @@ import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { ProductItemCard } from "../components/ProductItemCard";
-
-const productos = [
-  {
-    id: 1,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 2,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 3,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 4,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 5,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 6,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 7,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 8,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 9,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 10,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 11,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 12,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 13,
-    title: "Veggie tomato mix",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 14,
-    title: "Egg and cucumber",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 15,
-    title: "Fried chicken m.",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-  {
-    id: 16,
-    title: "Moi-moi and ekpa",
-    price: "$1,900",
-    image: "https://via.placeholder.com/100",
-  },
-];
+import { foodItems } from "@/database";
 
 const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
   const [search, setSearch] = useState("");
 
-  const filteredProductos = productos.filter((producto) =>
+  const filteredProductos = foodItems.filter((producto) =>
     producto.title.toLowerCase().includes(search.toLowerCase()),
   );
 
@@ -147,7 +49,7 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
               key={producto.id}
               title={producto.title}
               price={producto.price}
-              image={producto.image}
+              image={producto.imageUrl}
               width={"40%"}
               onPress={() => navigation.navigate("MealDetailScreen")}
             />

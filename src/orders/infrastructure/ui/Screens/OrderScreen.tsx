@@ -1,101 +1,49 @@
-import React, { useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { OrderScreenRouteProps } from "../types/OrderScreenRouteProps";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
 import ProductCartItemCard from "../components/ProductCartItemCard";
-
-interface Product {
-  id: string;
-  name: string;
-  price: string;
-  image: string;
-  quantity: number;
-}
+import { Order, order } from "@/database";
+import { useState } from "react";
 
 const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
   const handlePress = () => {
     navigation.navigate("PaymentScreen");
   };
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: "1",
-      name: "Hamburguesa doble queso",
-      price: "$100.00",
-      image: "https://via.placeholder.com/350",
-      quantity: 0,
-    },
-    {
-      id: "2",
-      name: "Hamburguesa doble queso",
-      price: "$100.00",
-      image: "https://via.placeholder.com/350",
-      quantity: 0,
-    },
-    {
-      id: "3",
-      name: "Hamburguesa doble queso",
-      price: "$100.00",
-      image: "https://via.placeholder.com/350",
-      quantity: 0,
-    },
-    {
-      id: "4",
-      name: "Hamburguesa doble queso",
-      price: "$100.00",
-      image: "https://via.placeholder.com/350",
-      quantity: 0,
-    },
-    {
-      id: "5",
-      name: "Hamburguesa doble queso",
-      price: "$100.00",
-      image: "https://via.placeholder.com/350",
-      quantity: 0,
-    },
-    {
-      id: "6",
-      name: "Hamburguesa doble queso",
-      price: "$100.00",
-      image: "https://via.placeholder.com/350",
-      quantity: 0,
-    },
-  ]);
 
-  const updateQuantity = (id: string, change: number) => {
-    setProducts(
-      products.map((product) =>
-        product.id === id
-          ? { ...product, quantity: Math.max(0, product.quantity + change) }
-          : product,
+  const [orderData, setOrderData] = useState<Order>(order);
+
+  const updateQuantity = (id: number, change: number) => {
+    setOrderData({
+      ...orderData,
+      orderItems: orderData.orderItems.map((orderItem) =>
+        orderItem.id === id
+          ? { ...orderItem, quantity: orderItem.quantity + change }
+          : orderItem,
       ),
-    );
+    });
   };
-
-  const renderItem = ({ item }: { item: Product }) => (
-    <ProductCartItemCard
-      id={item.id}
-      name={item.name}
-      price={item.price}
-      imageUrl={item.image}
-      quantity={item.quantity}
-      handleQuantityChange={updateQuantity}
-    />
-  );
 
   return (
     <BasicTabLayout paddingBottom={"5%"}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Carrito de compras</Text>
       </View>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <ScrollView>
+        {orderData.orderItems.map((orderItem) => (
+          <ProductCartItemCard
+            key={orderItem.id}
+            id={orderItem.id}
+            name={orderItem.foodItem.title}
+            price={orderItem.foodItem.price}
+            quantity={orderItem.quantity}
+            imageUrl={orderItem.foodItem.imageUrl}
+            handleQuantityChange={updateQuantity}
+          />
+        ))}
+      </ScrollView>
       <Button
         text={"Terminar orden"}
         handlePress={handlePress}

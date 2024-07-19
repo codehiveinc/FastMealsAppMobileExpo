@@ -3,12 +3,12 @@ import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ProductCartItemCardProps {
-  id: string;
+  id: number;
   name: string;
   price: string;
   imageUrl: string;
   quantity: number;
-  handleQuantityChange: (id: string, quantity: number) => void;
+  handleQuantityChange: (id: number, quantity: number) => void;
 }
 
 const ProductCartItemCard = ({

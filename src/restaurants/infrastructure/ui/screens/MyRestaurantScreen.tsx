@@ -5,6 +5,7 @@ import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { Section } from "@/users/infrastructure/ui/components/Section";
+import { restaurantItem } from "@/database";
 
 const userSections = [
   {
@@ -54,17 +55,18 @@ const MyRestaurantScreen = ({ navigation }: MyRestaurantScreenRouteProps) => {
               <Image
                 style={styles.profileImg}
                 source={{
-                  uri: "https://via.placeholder.com/350",
+                  uri: restaurantItem.imageUrl,
                 }}
               />
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={styles.infoTextHeader}>La casa de las pizzas</Text>
+              <Text style={styles.infoTextHeader}>{restaurantItem.name}</Text>
               <Text style={styles.infoTextSubheader}>
-                Dirección: Av. Central C.P. 29049
+                Dirección: {restaurantItem.address}
               </Text>
               <Text style={styles.infoTextSubheader}>
-                Horario: 10:00 - 18:00
+                Horario: {restaurantItem.openingTime} -{" "}
+                {restaurantItem.closingTime}
               </Text>
             </View>
           </View>
