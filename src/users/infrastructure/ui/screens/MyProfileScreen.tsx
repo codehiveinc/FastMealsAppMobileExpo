@@ -11,8 +11,8 @@ const userSections = [
     routeName: "MyRestaurantsScreen",
   },
   {
-    title: "Crear restaurante",
-    routeName: "CreateRestaurantScreen",
+    title: "Mis pedidos",
+    routeName: "MyOrdersHistoryScreen",
   },
   {
     title: "Politica de privacidad",

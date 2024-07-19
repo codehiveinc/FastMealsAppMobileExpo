@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./HomeScreen";
 import BottomBar from "@/shared/infrastructure/ui/components/BottomBar";
 import MyProfileScreen from "@/users/infrastructure/ui/screens/MyProfileScreen";
-import OrderScreen from "@/orders/infrastructure/ui/Screens/OrderScreen";
+import OrderScreen from "@/orders/infrastructure/ui/screens/OrderScreen";
 
 export type HomeTabParamList = {
   HomeScreen: undefined;

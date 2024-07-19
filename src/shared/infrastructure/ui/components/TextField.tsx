@@ -32,7 +32,7 @@ export const TextField = ({
   onChange,
 }: TextFieldProps) => {
   return (
-    <View>
+    <View style={{ width }}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         style={[errorMessage ? styles.errorField : styles.field, { width }]}

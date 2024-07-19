@@ -14,12 +14,18 @@ const MyRestaurantsScreen = ({ navigation }: MyRestaurantsScreenRouteProps) => {
     navigation.navigate("MyRestaurantScreen");
   };
 
+  const handlePressCreateRestaurant = () => {
+    navigation.navigate("CreateRestaurantScreen");
+  };
+
   return (
     <BasicLayout>
       <AppBar
         leftIcon="chevron-back"
         onLeftPress={() => goBack()}
         title="Mis Restaurantes"
+        rightIcon="add"
+        onRightPress={handlePressCreateRestaurant}
       />
 
       <ScrollView
