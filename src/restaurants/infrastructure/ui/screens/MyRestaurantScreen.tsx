@@ -16,6 +16,14 @@ const userSections = [
     title: "Productos",
     routeName: "MyMealsScreen",
   },
+  {
+    title: "Estadísticas",
+    routeName: "MyRestaurantStatisticsScreen",
+  },
+  {
+    title: "Historial de pedidos",
+    routeName: "MyOrdersHistoryAdminScreen",
+  },
 ];
 
 const MyRestaurantScreen = ({ navigation }: MyRestaurantScreenRouteProps) => {

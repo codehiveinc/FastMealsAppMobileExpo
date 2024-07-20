@@ -15,3 +15,13 @@ export type MyOrderHistoryScreenRouteProps = NativeStackScreenProps<
   RootStackParamList,
   "MyOrderHistoryScreen"
 >;
+
+export type MyOrdersHistoryAdminScreenRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "MyOrdersHistoryAdminScreen"
+>;
+
+export type OrderAdminScreenRouteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "OrderAdminScreen"
+>;

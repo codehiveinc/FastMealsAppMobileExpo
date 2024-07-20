@@ -21,6 +21,9 @@ import MyMealsScreen from "@/restaurants/infrastructure/ui/screens/MyMealsScreen
 import MyRestaurantScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantScreen";
 import MyOrdersHistoryScreen from "@/orders/infrastructure/ui/screens/MyOrdersHistoryScreen";
 import MyOrderHistoryScreen from "@/orders/infrastructure/ui/screens/MyOrderHistoryScreen";
+import MyRestaurantStatisticsScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantStatistics";
+import MyOrdersHistoryAdminScreen from "@/orders/infrastructure/ui/screens/MyOrdersHistoryAdminScreen";
+import OrderAdminScreen from "@/orders/infrastructure/ui/screens/OrderAdminScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -75,6 +78,15 @@ const MainNavigator = () => {
           name="MyOrderHistoryScreen"
           component={MyOrderHistoryScreen}
         />
+        <Stack.Screen
+          name="MyRestaurantStatisticsScreen"
+          component={MyRestaurantStatisticsScreen}
+        />
+        <Stack.Screen
+          name="MyOrdersHistoryAdminScreen"
+          component={MyOrdersHistoryAdminScreen}
+        />
+        <Stack.Screen name="OrderAdminScreen" component={OrderAdminScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
