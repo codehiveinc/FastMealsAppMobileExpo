@@ -21,6 +21,9 @@ type RootStackParamList = {
   MyMealsScreen: undefined;
   MyOrdersHistoryScreen: undefined;
   MyOrderHistoryScreen: undefined;
+  MyRestaurantStatisticsScreen: undefined;
+  MyOrdersHistoryAdminScreen: undefined;
+  OrderAdminScreen: undefined;
 };
 
 export default RootStackParamList;
