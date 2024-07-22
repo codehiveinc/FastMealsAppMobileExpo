@@ -9,9 +9,10 @@ import {
   validatePassword,
   validatePhone,
 } from "../../../../shared/infrastructure/ui/validations/validations";
+import User from "@/users/domain/types/user";
 
 interface AuthRegisterFormProps {
-  handlePressRegister: () => void;
+  handlePressRegister: (user: User) => void;
 }
 
 const AuthRegisterForm = ({ handlePressRegister }: AuthRegisterFormProps) => {
@@ -84,7 +85,13 @@ const AuthRegisterForm = ({ handlePressRegister }: AuthRegisterFormProps) => {
       !firstNameError &&
       !lastNameError
     ) {
-      handlePressRegister();
+      handlePressRegister({
+        firstName: registerFormData.firstName,
+        lastName: registerFormData.lastName,
+        email: registerFormData.email,
+        password: registerFormData.password,
+        cellphone: registerFormData.phone,
+      });
     }
   }, [handlePressRegister, registerFormData]);
 

@@ -1,14 +1,31 @@
 import React, { useState } from "react";
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from "react-native";
 import { AuthScreenRouteProps } from "../types/AuthScreensRouteProps";
 import AuthHeader from "../components/AuthHeader";
 import AuthLoginForm from "../components/AuthLoginForm";
 import AuthRegisterForm from "../components/AuthRegisterForm";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { createUserUseCase } from "@/users/infrastructure/dependecies";
+import User from "@/users/domain/types/user";
+import HttpRequestError from "@/shared/application/errors/http-request.error";
+import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
 
 const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
+  const [isActiveModal, setIsActiveModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [activeTab, setActiveTab] = useState(0);
   const insets = useSafeAreaInsets();
+
+  const onCloseModal = () => {
+    setIsActiveModal(false);
+    setModalMessage("");
+  };
 
   const handlePressLogin = (email: string, password: string) => {
     navigation.reset({
@@ -17,8 +34,17 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
     });
   };
 
-  const handlePressRegister = () => {
-    console.log("Register");
+  const handlePressRegister = (user: User) => {
+    try {
+      createUserUseCase.execute(user);
+      setActiveTab(0);
+      setModalMessage("Usuario creado correctamente");
+      setIsActiveModal(true);
+    } catch (error) {
+      if (error instanceof HttpRequestError) {
+        Alert.alert("Error", error.message);
+      }
+    }
   };
 
   return (
@@ -26,6 +52,13 @@ const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
+      <BasicModal
+        message={modalMessage}
+        visible={isActiveModal}
+        primaryButtonText="Aceptar"
+        onPrimaryButtonPress={onCloseModal}
+        onClose={onCloseModal}
+      />
       <AuthHeader activeTab={activeTab} setActiveTab={setActiveTab} />
       <View
         style={[styles.formContainer, { paddingBottom: insets.bottom + 20 }]}
