@@ -1,5 +1,6 @@
-import User from "../domain/types/user";
-import IUserRepository from "./ports/repositories/user.repository.interface";
+import User from "@/users/domain/types/user";
+import IUserRepository from "../ports/repositories/user.repository.interface";
+import HttpRequestError from "@/shared/application/errors/http-request.error";
 
 class CreateUserUseCase {
   constructor(private readonly userRepository: IUserRepository) {}
@@ -12,7 +13,7 @@ class CreateUserUseCase {
       return response.data;
     }
 
-    throw new Error(response.message);
+    throw new HttpRequestError(response.message);
   }
 }
 

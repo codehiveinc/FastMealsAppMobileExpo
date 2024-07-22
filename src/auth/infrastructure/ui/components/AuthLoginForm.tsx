@@ -33,15 +33,14 @@ const AuthLoginForm = ({ handlePressLogin }: AuthLoginFormProps) => {
   }, []);
 
   const handleSubmit = useCallback(() => {
-    // const emailError = validateEmail(loginFormData.email);
-    // const passwordError = validatePassword(loginFormData.password);
+    const emailError = validateEmail(loginFormData.email);
+    const passwordError = validatePassword(loginFormData.password);
 
-    // setErrors({ email: emailError, password: passwordError });
+    setErrors({ email: emailError, password: passwordError });
 
-    // if (!emailError && !passwordError) {
-    //   handlePressLogin(loginFormData.email, loginFormData.password);
-    // }
-    handlePressLogin(loginFormData.email, loginFormData.password);
+    if (!emailError && !passwordError) {
+      handlePressLogin(loginFormData.email, loginFormData.password);
+    }
   }, [handlePressLogin, loginFormData.email, loginFormData.password]);
 
   return (

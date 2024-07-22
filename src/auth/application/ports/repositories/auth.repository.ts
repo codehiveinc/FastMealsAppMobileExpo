@@ -1,9 +1,8 @@
-import BaseReponse from "@/shared/domain/types/base-response";
-import User from "@/users/domain/types/user";
+import Tokens from "@/auth/domain/types/tokens";
+import BaseResponse from "@/shared/domain/types/base-response";
 
-type IAuthRepository = {
-  login: (email: string, password: string) => Promise<BaseReponse>;
-  register: (user: User) => Promise<BaseReponse>;
-};
+interface IAuthRepository {
+  login: (email: string, password: string) => Promise<BaseResponse<Tokens>>;
+}
 
 export default IAuthRepository;

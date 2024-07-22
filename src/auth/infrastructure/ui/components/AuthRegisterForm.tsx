@@ -86,8 +86,8 @@ const AuthRegisterForm = ({ handlePressRegister }: AuthRegisterFormProps) => {
       !lastNameError
     ) {
       handlePressRegister({
-        firstName: registerFormData.firstName,
-        lastName: registerFormData.lastName,
+        first_name: registerFormData.firstName,
+        last_name: registerFormData.lastName,
         email: registerFormData.email,
         password: registerFormData.password,
         cellphone: registerFormData.phone,

@@ -134,7 +134,7 @@ const MyOrderHistoryScreen = ({
             <Image
               style={styles.restaurantImg}
               source={{
-                uri: "https://via.placeholder.com/150",
+                uri: "https://mortonfoodservice.com/content/uploads/restaurant-patio-morton.png",
               }}
             />
             <View style={styles.infoTextContainer}>

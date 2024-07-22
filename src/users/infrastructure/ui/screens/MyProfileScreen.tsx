@@ -4,6 +4,10 @@ import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { Section } from "../components/Section";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/auth/infrastructure/ui/hooks/useAuth";
+import { getUserByUuidUseCase } from "../../dependecies";
+import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 
 const userSections = [
   {
@@ -21,8 +25,50 @@ const userSections = [
 ];
 
 const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
+  const { authState, logout } = useAuth();
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    cellphone: "",
+  });
+
+  useEffect(() => {
+    const userUuid = authState.user.user_uuid;
+
+    const fetchUser = async () => {
+      try {
+        const user = await getUserByUuidUseCase.execute(userUuid!);
+
+        setUser({
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          cellphone: user.cellphone,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUser();
+  }, [authState.user.user_uuid]);
+
+  const onLogout = () => {
+    logout();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "GetStartedScreen" }],
+    });
+  };
+
   const handleChangeUserInformation = () => {
-    navigation.navigate("UpdateUserScreen");
+    navigation.navigate("UpdateUserScreen", {
+      userUuid: authState.user.user_uuid!,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      cellphone: user.cellphone,
+    });
   };
 
   const renderUserSections = () => {
@@ -34,12 +80,15 @@ const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
       />
     ));
   };
+
   return (
     <BasicTabLayout>
       <View style={styles.container}>
-        <View>
-          <Text style={styles.headerText}>Mi Perfil</Text>
-        </View>
+        <AppBar
+          title="Mi Perfil"
+          rightIcon="log-out-outline"
+          onRightPress={onLogout}
+        />
         <View style={styles.subheaderContainer}>
           <View style={styles.userInformationHeaderContainer}>
             <Text style={styles.subheaderText}>Detalles Personales</Text>
@@ -58,13 +107,13 @@ const MyProfileScreen = ({ navigation }: MyProfileScreenRouteProps) => {
             </View>
             <View style={styles.userInformationTextContainer}>
               <Text style={styles.userInformationTextHeader}>
-                Fernando Guerrero
+                {user.first_name} {user.last_name}
               </Text>
               <Text style={styles.userInformationTextSubheader}>
-                devrrior@gmail.com
+                {user.email}
               </Text>
               <Text style={styles.userInformationTextSubheader}>
-                9613692958
+                {user.cellphone}
               </Text>
             </View>
           </View>

@@ -24,14 +24,28 @@ import MyOrderHistoryScreen from "@/orders/infrastructure/ui/screens/MyOrderHist
 import MyRestaurantStatisticsScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantStatistics";
 import MyOrdersHistoryAdminScreen from "@/orders/infrastructure/ui/screens/MyOrdersHistoryAdminScreen";
 import OrderAdminScreen from "@/orders/infrastructure/ui/screens/OrderAdminScreen";
+import { AuthProvider } from "@/auth/infrastructure/ui/contexts/authContext/AuthProvider";
+import { useAuth } from "@/auth/infrastructure/ui/hooks/useAuth";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const MainNavigator = () => {
   return (
+    <AuthProvider>
+      <Layout />
+    </AuthProvider>
+  );
+};
+
+const Layout = () => {
+  const { authState } = useAuth();
+
+  return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="GetStartedScreen"
+        initialRouteName={
+          authState.isAuthenticated ? "HomeTabScreen" : "GetStartedScreen"
+        }
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="GetStartedScreen" component={GetStartedScreen} />

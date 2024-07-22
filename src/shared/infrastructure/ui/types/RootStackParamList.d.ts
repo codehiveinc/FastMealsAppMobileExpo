@@ -11,7 +11,12 @@ type RootStackParamList = {
   OrderScreen: undefined;
   UpdateMealScreen: undefined;
   CreateMealScreen: undefined;
-  UpdateUserScreen: undefined;
+  UpdateUserScreen: {
+    userUuid: string;
+    firstName: string;
+    lastName: string;
+    cellphone: string;
+  };
   CreateRestaurantScreen: undefined;
   MyRestaurantScreen: undefined;
   MealDetailAdminScreen: undefined;
@@ -20,7 +25,9 @@ type RootStackParamList = {
   MyRestaurantsScreen: undefined;
   MyMealsScreen: undefined;
   MyOrdersHistoryScreen: undefined;
-  MyOrderHistoryScreen: undefined;
+  MyOrderHistoryScreen: {
+    orderUuid: string;
+  };
   MyRestaurantStatisticsScreen: undefined;
   MyOrdersHistoryAdminScreen: undefined;
   OrderAdminScreen: undefined;

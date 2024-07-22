@@ -15,28 +15,40 @@ import { createUserUseCase } from "@/users/infrastructure/dependecies";
 import User from "@/users/domain/types/user";
 import HttpRequestError from "@/shared/application/errors/http-request.error";
 import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
+import { useAuth } from "../hooks/useAuth";
+import { createTokensUseCase } from "../../dependecies";
 
 const AuthScreen = ({ navigation }: AuthScreenRouteProps) => {
   const [isActiveModal, setIsActiveModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [activeTab, setActiveTab] = useState(0);
   const insets = useSafeAreaInsets();
+  const { login } = useAuth();
 
   const onCloseModal = () => {
     setIsActiveModal(false);
     setModalMessage("");
   };
 
-  const handlePressLogin = (email: string, password: string) => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "HomeTabScreen" }],
-    });
+  const handlePressLogin = async (email: string, password: string) => {
+    try {
+      const tokens = await createTokensUseCase.execute(email, password);
+      login(tokens.access_token, tokens.refresh_token);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "HomeTabScreen" }],
+      });
+    } catch (error) {
+      if (error instanceof HttpRequestError) {
+        setModalMessage(error.message);
+        setIsActiveModal(true);
+      }
+    }
   };
 
-  const handlePressRegister = (user: User) => {
+  const handlePressRegister = async (user: User) => {
     try {
-      createUserUseCase.execute(user);
+      await createUserUseCase.execute(user);
       setActiveTab(0);
       setModalMessage("Usuario creado correctamente");
       setIsActiveModal(true);

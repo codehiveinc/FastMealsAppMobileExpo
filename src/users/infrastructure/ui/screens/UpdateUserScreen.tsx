@@ -11,16 +11,21 @@ import Button from "@/shared/infrastructure/ui/components/Button";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { UpdateUserScreenRouteProps } from "../types/UsersScreensRouteProps";
 
-const UpdateUserScreen = ({ navigation }: UpdateUserScreenRouteProps) => {
+const UpdateUserScreen = ({
+  navigation,
+  route,
+}: UpdateUserScreenRouteProps) => {
+  const { userUuid, firstName, lastName, cellphone } = route.params;
+
   const [registerFormData, setRegisterFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
+    firstName,
+    lastName,
+    cellphone,
   });
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
-    phone: "",
+    cellphone: "",
   });
 
   const handleFirstNameChange = useCallback((firstName: string) => {
@@ -41,17 +46,17 @@ const UpdateUserScreen = ({ navigation }: UpdateUserScreenRouteProps) => {
 
   const handlePhoneChange = useCallback((phone: string) => {
     const numericPhone = phone.replace(/[^\d]/g, "");
-    setRegisterFormData((prev) => ({ ...prev, phone: numericPhone }));
-    setErrors((prev) => ({ ...prev, phone: validatePhone(numericPhone) }));
+    setRegisterFormData((prev) => ({ ...prev, cellphone: numericPhone }));
+    setErrors((prev) => ({ ...prev, cellphone: validatePhone(numericPhone) }));
   }, []);
 
   const handleSubmit = useCallback(() => {
-    const phoneError = validatePhone(registerFormData.phone);
+    const phoneError = validatePhone(registerFormData.cellphone);
     const firstNameError = validateName(registerFormData.firstName, "nombre");
     const lastNameError = validateName(registerFormData.lastName, "apellido");
 
     setErrors({
-      phone: phoneError,
+      cellphone: phoneError,
       firstName: firstNameError,
       lastName: lastNameError,
     });
@@ -77,19 +82,19 @@ const UpdateUserScreen = ({ navigation }: UpdateUserScreenRouteProps) => {
             errorMessage={errors.firstName}
           />
           <TextField
-            label="Doe"
+            label="Apellido"
             value={registerFormData.lastName}
-            placeholder="Apellido"
+            placeholder="Doe"
             onChange={handleLastNameChange}
             errorMessage={errors.lastName}
           />
           <TextField
             label="Teléfono"
-            value={registerFormData.phone}
+            value={registerFormData.cellphone}
             placeholder="9121231295"
             keyboadType="phone-pad"
             onChange={handlePhoneChange}
-            errorMessage={errors.phone}
+            errorMessage={errors.cellphone}
           />
         </View>
         <View style={styles.buttonsContainer}>
