@@ -19,18 +19,27 @@ const MyRestaurantStatisticsScreen = ({
         <View>
           <Text style={styles.title}>Estadísticas de tu restaurante</Text>
           <View style={styles.infoContainer}>
-            <Text style={styles.text}>Ventas del mes: $0.00</Text>
-            <Text style={styles.text}>Numero de ventas del mes: 100</Text>
+            <Text style={styles.text}>Ventas del mes: $15,000.00</Text>
+            <Text style={styles.text}>Numero de ventas del mes: 131</Text>
             <Text style={styles.text}>
-              Calificación de los clientes: Neutral
+              Calificación de los clientes: Positiva
             </Text>
           </View>
         </View>
         <View>
-          <Text style={styles.title}>Gráficas de tendencia</Text>
+          <Text style={styles.title}>Gráfica de comentarios semanales</Text>
           <View style={styles.infoContainer}>
             <Image
-              source={{ uri: "https://via.placeholder.com/150" }}
+              source={{ uri: "https://res.cloudinary.com/dl4lwk4ng/image/upload/v1721659637/rent-ride-images/hvptsamnuw30wqhk0db7.jpg" }}
+              style={{ width: "100%", aspectRatio: 16 / 9 }}
+            />
+          </View>
+        </View>
+        <View>
+          <Text style={styles.title}>Prediccion de tendencia</Text>
+          <View style={styles.infoContainer}>
+            <Image
+              source={{ uri: "https://res.cloudinary.com/dl4lwk4ng/image/upload/v1721659633/rent-ride-images/uhc7qpsvsrwlfmit3gv8.jpg" }}
               style={{ width: "100%", aspectRatio: 16 / 9 }}
             />
           </View>

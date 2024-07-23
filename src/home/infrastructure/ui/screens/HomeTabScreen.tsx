@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./HomeScreen";
 import BottomBar from "@/shared/infrastructure/ui/components/BottomBar";
 import MyProfileScreen from "@/users/infrastructure/ui/screens/MyProfileScreen";
-import OrderScreen from "@/orders/infrastructure/ui/screens/OrderScreen";
+import OrderScreen from "@/orders/infrastructure/ui/Screens/OrderScreen";
 
 export type HomeTabParamList = {
   HomeScreen: undefined;
@@ -11,6 +11,20 @@ export type HomeTabParamList = {
 };
 
 const Tab = createBottomTabNavigator<HomeTabParamList>();
+
+const HomeTabScreen = () => {
+  return (
+    <Tab.Navigator
+      tabBar={(props) => <BottomBar items={items} {...props} />}
+      screenOptions={{ headerShown: false }}
+    >
+      {/* TODO: Fix type */}
+      <Tab.Screen name="HomeScreen" component={HomeScreen} />
+      <Tab.Screen name="OrderScreen" component={OrderScreen} />
+      <Tab.Screen name="MyProfileScreen" component={MyProfileScreen} />
+    </Tab.Navigator>
+  );
+};
 
 const items = [
   {
@@ -33,18 +47,6 @@ const items = [
   },
 ];
 
-const HomeTabScreen = () => {
-  return (
-    <Tab.Navigator
-      tabBar={(props) => <BottomBar items={items} {...props} />}
-      screenOptions={{ headerShown: false }}
-    >
-      {/* TODO: Fix type */}
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="OrderScreen" component={OrderScreen} />
-      <Tab.Screen name="MyProfileScreen" component={MyProfileScreen} />
-    </Tab.Navigator>
-  );
-};
+
 
 export default HomeTabScreen;
