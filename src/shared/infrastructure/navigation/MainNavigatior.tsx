@@ -7,8 +7,6 @@ import SearchScreen from "@/restaurants/infrastructure/ui/screens/SearchScreen";
 import PrivacyPolicyScreen from "@/users/infrastructure/ui/screens/PrivacyPolicyScreen";
 import RestaurantScreen from "@/restaurants/infrastructure/ui/screens/RestaurantScreen";
 import MealDetailScreen from "@/restaurants/infrastructure/ui/screens/MealDetailScreen";
-//import OrderScreen from "@/orders/infrastructure/ui/screens/OrderScreen";
-import OrderScreen from "@/orders/infrastructure/ui/Screens/OrderScreen";
 import UpdateMealScreen from "@/restaurants/infrastructure/ui/screens/UpdateMealScreen";
 import CreateMealScreen from "@/restaurants/infrastructure/ui/screens/CreateMealScreen";
 import CreateRestaurantScreen from "@/restaurants/infrastructure/ui/screens/CreateRestaurantScreen";
@@ -19,12 +17,13 @@ import UpdateUserScreen from "@/users/infrastructure/ui/screens/UpdateUserScreen
 import PaymentScreen from "@/payment/infrastructure/ui/screens/PaymentScreen";
 import MealDetailAdminScreen from "@/restaurants/infrastructure/ui/screens/MealDetailAdminScreen";
 import MyMealsScreen from "@/restaurants/infrastructure/ui/screens/MyMealsScreen";
-import MyRestaurantScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantScreen";//import MyOrdersHistoryScreen from "@/orders/infrastructure/ui/screens/MyOrdersHistoryScreen";
-import MyOrderHistoryScreen from "@/orders/infrastructure/ui/Screens/MyOrderHistoryScreen";//import MyOrderHistoryScreen from "@/orders/infrastructure/ui/screens/MyOrderHistoryScreen";
-import MyOrdersHistoryScreen from "@/orders/infrastructure/ui/Screens/MyOrdersHistoryScreen";
-import MyRestaurantStatisticsScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantStatistics";//import MyOrdersHistoryAdminScreen from "@/orders/infrastructure/ui/screens/MyOrdersHistoryAdminScreen";
-import MyOrdersHistoryAdminScreen from "@/orders/infrastructure/ui/Screens/MyOrdersHistoryAdminScreen";//import OrderAdminScreen from "@/orders/infrastructure/ui/screens/OrderAdminScreen";
-import OrderAdminScreen from "@/orders/infrastructure/ui/Screens/OrderAdminScreen";
+import MyRestaurantScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantScreen";
+import MyRestaurantStatisticsScreen from "@/restaurants/infrastructure/ui/screens/MyRestaurantStatistics";
+import MyOrdersHistoryScreen from "@/orders/infrastructure/ui/screens/MyOrdersHistoryScreen";
+import MyOrderHistoryScreen from "@/orders/infrastructure/ui/screens/MyOrderHistoryScreen";
+import MyOrdersHistoryAdminScreen from "@/orders/infrastructure/ui/screens/MyOrdersHistoryAdminScreen";
+import OrderAdminScreen from "@/orders/infrastructure/ui/screens/OrderAdminScreen";
+import OrderScreen from '@/orders/infrastructure/ui/screens/OrderScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
