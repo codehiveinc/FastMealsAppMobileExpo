@@ -16,9 +16,8 @@ import { foodItems } from "@/database";
 
 const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
   const [search, setSearch] = useState("");
-
-  const filteredProductos = foodItems.filter((producto) =>
-    producto.title.toLowerCase().includes(search.toLowerCase()),
+  const filteredProductos = Object.values(foodItems).filter((producto) =>
+    producto.title.toLowerCase().includes(search.toLowerCase())
   );
 
   const handlePress = () => {
@@ -51,7 +50,9 @@ const SearchScreen = ({ navigation }: SearchScreenRouteProps) => {
               price={producto.price}
               image={producto.imageUrl}
               width={"40%"}
-              onPress={() => navigation.navigate("MealDetailScreen")}
+              onPress={() =>
+                navigation.navigate("MealDetailScreen", { mealId: producto.id })
+              }
             />
           ))}
         </ScrollView>

@@ -5,24 +5,43 @@ import Button from "@/shared/infrastructure/ui/components/Button";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
 import ProductCartItemCard from "../components/ProductCartItemCard";
-import { Order, order } from "@/database";
-import { useState } from "react";
+import { foodItems, Order, order } from "@/database";
+import { useMemo, useState } from "react";
 
 const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
   const handlePress = () => {
-    navigation.navigate("PaymentScreen");
+    navigation.navigate("PaymentScreen", { totalAmount });
   };
-
   const [orderData, setOrderData] = useState<Order>(order);
+  const totalAmount = useMemo(() => {
+    return orderData.orderItems.reduce((acc, orderItem) => {
+      const meal = foodItems[orderItem.foodItemId];
+      return acc + meal.price * orderItem.quantity;
+    }, 0);
+  }, [orderData]);
 
   const updateQuantity = (id: number, change: number) => {
-    setOrderData({
-      ...orderData,
-      orderItems: orderData.orderItems.map((orderItem) =>
-        orderItem.id === id
-          ? { ...orderItem, quantity: orderItem.quantity + change }
-          : orderItem,
-      ),
+    setOrderData((prevOrderData) => {
+      const updatedOrderItems = prevOrderData.orderItems.map((orderItem) => {
+        if (orderItem.id === id) {
+          const newQuantity = orderItem.quantity + change;
+          if (newQuantity <= 0) {
+            // Remove the order item
+            return null;
+          } else {
+            return { ...orderItem, quantity: newQuantity };
+          }
+        } else {
+          return orderItem;
+        }
+      });
+
+      // Filter out null values (removed order items)
+      const filteredOrderItems = updatedOrderItems.filter(
+        (orderItem) => orderItem !== null
+      );
+
+      return { ...prevOrderData, orderItems: filteredOrderItems };
     });
   };
 
@@ -32,17 +51,20 @@ const OrderScreen = ({ navigation }: OrderScreenRouteProps) => {
         <Text style={styles.header}>Carrito de compras</Text>
       </View>
       <ScrollView>
-        {orderData.orderItems.map((orderItem) => (
-          <ProductCartItemCard
-            key={orderItem.id}
-            id={orderItem.id}
-            name={orderItem.foodItem.title}
-            price={orderItem.foodItem.price}
-            quantity={orderItem.quantity}
-            imageUrl={orderItem.foodItem.imageUrl}
-            handleQuantityChange={updateQuantity}
-          />
-        ))}
+        {orderData.orderItems.map((orderItem) => {
+          const meal = foodItems[orderItem.foodItemId];
+          return (
+            <ProductCartItemCard
+              key={orderItem.id}
+              id={orderItem.id}
+              name={meal.title}
+              price={meal.price}
+              quantity={orderItem.quantity}
+              imageUrl={meal.imageUrl}
+              handleQuantityChange={updateQuantity}
+            />
+          );
+        })}
       </ScrollView>
       <Button
         text={"Terminar orden"}

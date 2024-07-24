@@ -6,9 +6,21 @@ import BasicTabLayout from "@/shared/infrastructure/ui/layouts/BasicTabLayout";
 import { restaurantItems } from "@/database";
 
 const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
-  const handlePress = () => {
-    navigation.navigate("RestaurantScreen");
+  const handlePress = (restaurantId: number) => {
+    navigation.navigate("RestaurantScreen", { restaurantId });
   };
+
+  const renderRestaurantCards = () => {
+    return Object.values(restaurantItems).map((restaurant, key) => (
+      <RestaurantCard
+        key={key + 1}
+        imageUrl={restaurant.imageUrl}
+        name={restaurant.name}
+        onPressButton={() => handlePress(key + 1)}
+      />
+    ));
+  };
+
   return (
     <BasicTabLayout>
       <AppBar
@@ -26,14 +38,7 @@ const HomeScreen = ({ navigation }: HomeScreenRouteProps) => {
           showsHorizontalScrollIndicator={false}
           horizontal={true}
         >
-          {restaurantItems.map((restaurant) => (
-            <RestaurantCard
-              key={restaurant.id}
-              imageUrl={restaurant.imageUrl}
-              name={restaurant.name}
-              onPressButton={() => handlePress()}
-            />
-          ))}
+          {renderRestaurantCards()}
         </ScrollView>
       </View>
     </BasicTabLayout>

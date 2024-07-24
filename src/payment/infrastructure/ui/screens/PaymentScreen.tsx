@@ -34,7 +34,8 @@ const shippingMethods = [
   },
 ];
 
-const PaymentScreen = ({ navigation }: PaymentScreenRouteProps) => {
+const PaymentScreen = ({ navigation, route }: PaymentScreenRouteProps) => {
+  const { totalAmount } = route.params;
   const [selectedMenuOption, setSelectedMenuOption] = useState(0);
   const [selectedOrderOption, setSelectedOrderOption] = useState({
     shippingMethod: "pickup",
@@ -231,7 +232,7 @@ const PaymentScreen = ({ navigation }: PaymentScreenRouteProps) => {
         <View style={styles.bottomSection}>
           <View style={styles.totalContainer}>
             <Text style={styles.totalText}>Total</Text>
-            <Text style={styles.totalAmount}>$23,000</Text>
+            <Text style={styles.totalAmount}>${totalAmount}</Text>
           </View>
           <Button
             text="Continuar"

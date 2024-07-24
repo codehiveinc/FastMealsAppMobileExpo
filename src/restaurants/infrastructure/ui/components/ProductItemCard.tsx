@@ -10,7 +10,7 @@ import {
 
 type ProductItemCardProps = {
   title: string;
-  price: string;
+  price: number;
   image: string;
   width: DimensionValue;
   onPress: () => void;
@@ -27,7 +27,7 @@ export const ProductItemCard = ({
     <TouchableOpacity style={[styles.container, { width }]} onPress={onPress}>
       <Image source={{ uri: image }} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>{price}</Text>
+      <Text style={styles.price}>${price}</Text>
     </TouchableOpacity>
   );
 };

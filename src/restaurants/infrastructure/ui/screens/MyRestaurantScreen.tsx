@@ -5,39 +5,43 @@ import BasicLayout from "@/shared/infrastructure/ui/layouts/BasicLayout";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { Section } from "@/users/infrastructure/ui/components/Section";
-import { restaurantItem } from "@/database";
+import { restaurantItems } from "@/database";
 
-const userSections = [
-  {
-    title: "Agregar producto",
-    routeName: "CreateMealScreen",
-  },
-  {
-    title: "Productos",
-    routeName: "MyMealsScreen",
-  },
-  {
-    title: "Estadísticas",
-    routeName: "MyRestaurantStatisticsScreen",
-  },
-  {
-    title: "Historial de pedidos",
-    routeName: "MyOrdersHistoryAdminScreen",
-  },
-];
-
-const MyRestaurantScreen = ({ navigation }: MyRestaurantScreenRouteProps) => {
+const MyRestaurantScreen = ({
+  navigation,
+  route,
+}: MyRestaurantScreenRouteProps) => {
+  const { restaurantId } = route.params;
   // TODO: Agregar opcion para cambiar la informacion del restaurante
   const handleChangeUserInformation = () => {
     // navigation.navigate("UpdateRestaurantScreen");
   };
+
+  const userSections = [
+    {
+      title: "Agregar producto",
+      handlePress: () => navigation.navigate("CreateRestaurantScreen"),
+    },
+    {
+      title: "Productos",
+      handlePress: () => navigation.navigate("MyMealsScreen", { restaurantId }),
+    },
+    {
+      title: "Estadísticas",
+      handlePress: () => navigation.navigate("MyRestaurantStatisticsScreen"),
+    },
+    {
+      title: "Historial de pedidos",
+      handlePress: () => navigation.navigate("MyOrdersHistoryAdminScreen"),
+    },
+  ];
 
   const renderUserSections = () => {
     return userSections.map((section) => (
       <Section
         key={section.title}
         title={section.title}
-        handlePress={() => navigation.navigate(section.routeName)}
+        handlePress={section.handlePress}
       />
     ));
   };
@@ -63,18 +67,20 @@ const MyRestaurantScreen = ({ navigation }: MyRestaurantScreenRouteProps) => {
               <Image
                 style={styles.profileImg}
                 source={{
-                  uri: restaurantItem.imageUrl,
+                  uri: restaurantItems[restaurantId].imageUrl,
                 }}
               />
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={styles.infoTextHeader}>{restaurantItem.name}</Text>
-              <Text style={styles.infoTextSubheader}>
-                Dirección: {restaurantItem.address}
+              <Text style={styles.infoTextHeader}>
+                {restaurantItems[restaurantId].name}
               </Text>
               <Text style={styles.infoTextSubheader}>
-                Horario: {restaurantItem.openingTime} -{" "}
-                {restaurantItem.closingTime}
+                Dirección: {restaurantItems[restaurantId].address}
+              </Text>
+              <Text style={styles.infoTextSubheader}>
+                Horario: {restaurantItems[restaurantId].openingTime} -{" "}
+                {restaurantItems[restaurantId].closingTime}
               </Text>
             </View>
           </View>

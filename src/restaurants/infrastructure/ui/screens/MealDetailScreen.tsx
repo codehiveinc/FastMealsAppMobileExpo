@@ -7,17 +7,27 @@ import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import Button from "@/shared/infrastructure/ui/components/Button";
 import { BasicModal } from "@/shared/infrastructure/ui/components/BasicModal";
-import { foodItem } from "@/database";
+import { foodItems, order } from "@/database";
 
-const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
+const MealDetailScreen = ({
+  navigation,
+  route,
+}: MealDetailScreenRouteProps) => {
+  const { mealId } = route.params;
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [modalMessage, setModalMessage] = React.useState("");
+  const [meal, setMeal] = React.useState(foodItems[mealId]);
 
   const disableModal = () => {
     setIsModalVisible(false);
   };
 
   const handleAddToCart = () => {
+    order.orderItems.push({
+      id: order.orderItems.length + 1,
+      foodItemId: mealId,
+      quantity: 1,
+    });
     setModalMessage("Alimento agregado al carrito");
     setIsModalVisible(true);
   };
@@ -39,10 +49,10 @@ const MealDetailScreen = ({ navigation }: MealDetailScreenRouteProps) => {
       <View style={styles.container}>
         <Image
           style={styles.image}
-          source={{ uri: foodItem.imageUrl }} // reemplaza con la URL de tu imagen
+          source={{ uri: meal.imageUrl }} // reemplaza con la URL de tu imagen
         />
-        <Text style={styles.title}>{foodItem.title}</Text>
-        <Text style={styles.price}>{foodItem.price}</Text>
+        <Text style={styles.title}>{meal.title}</Text>
+        <Text style={styles.price}>${meal.price}</Text>
         <View style={styles.infoContainer}>
           <Text style={styles.infoTitle}>Información de entrega</Text>
           <Text style={styles.infoText}>

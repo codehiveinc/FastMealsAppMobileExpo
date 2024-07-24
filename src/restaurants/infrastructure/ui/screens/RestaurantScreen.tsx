@@ -5,11 +5,17 @@ import AppBar from "@/shared/infrastructure/ui/components/AppBar";
 import { colors } from "@/shared/infrastructure/ui/consts/colors";
 import { fonts } from "@/shared/infrastructure/ui/consts/fonts";
 import { ProductItemCard } from "../components/ProductItemCard";
-import { foodItems, restaurantItem } from "@/database";
+import { useState } from "react";
+import { restaurantItems } from "@/database";
 
-const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
-  const handlePressDetail = () => {
-    navigation.navigate("MealDetailScreen");
+const RestaurantScreen = ({
+  navigation,
+  route,
+}: RestaurantScreenRouteProps) => {
+  const { restaurantId } = route.params;
+  const [restaurant, setRestaurant] = useState(restaurantItems[restaurantId]);
+  const handlePressDetail = (mealId: number) => {
+    navigation.navigate("MealDetailScreen", { mealId });
   };
 
   const handlePress = () => {
@@ -27,16 +33,15 @@ const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
         <View style={styles.restaurantInfoCard}>
           <Image
             style={styles.restauranImg}
-            source={{ uri: restaurantItem.imageUrl }}
+            source={{ uri: restaurant.imageUrl }}
           />
           <View style={styles.infoTextContainer}>
-            <Text style={styles.infoTextHeader}>{restaurantItem.name}</Text>
+            <Text style={styles.infoTextHeader}>{restaurant.name}</Text>
             <Text style={styles.infoTextSubheader}>
-              Dirección: {restaurantItem.address}
+              Dirección: {restaurant.address}
             </Text>
             <Text style={styles.infoTextSubheader}>
-              Horario: {restaurantItem.openingTime} -{" "}
-              {restaurantItem.closingTime}
+              Horario: {restaurant.openingTime} - {restaurant.closingTime}
             </Text>
           </View>
         </View>
@@ -46,14 +51,14 @@ const RestaurantScreen = ({ navigation }: RestaurantScreenRouteProps) => {
             contentContainerStyle={styles.productsContainer}
             showsVerticalScrollIndicator={false}
           >
-            {foodItems.map((producto) => (
+            {restaurantItems[restaurantId].meals.map((producto) => (
               <ProductItemCard
                 key={producto.id}
                 title={producto.title}
                 price={producto.price}
                 image={producto.imageUrl}
                 width={"40%"}
-                onPress={handlePressDetail}
+                onPress={() => handlePressDetail(producto.id)}
               />
             ))}
           </ScrollView>

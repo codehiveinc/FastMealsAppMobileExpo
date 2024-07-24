@@ -10,8 +10,8 @@ const MyRestaurantsScreen = ({ navigation }: MyRestaurantsScreenRouteProps) => {
     navigation.goBack();
   };
 
-  const handlePressRestaurant = () => {
-    navigation.navigate("MyRestaurantScreen");
+  const handlePressRestaurant = (restaurantId: number) => {
+    navigation.navigate("MyRestaurantScreen", { restaurantId });
   };
 
   const handlePressCreateRestaurant = () => {
@@ -32,10 +32,10 @@ const MyRestaurantsScreen = ({ navigation }: MyRestaurantsScreenRouteProps) => {
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
       >
-        {restaurantItems.map((restaurant) => (
+        {Object.values(restaurantItems).map((restaurant, key) => (
           <RestaurantOption
-            key={restaurant.id}
-            handlePress={handlePressRestaurant}
+            key={key}
+            handlePress={() => handlePressRestaurant(key + 1)}
             restaurantName={restaurant.name}
             restaurantImageUrl={restaurant.imageUrl}
           />

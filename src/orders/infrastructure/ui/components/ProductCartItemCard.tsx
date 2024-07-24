@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 interface ProductCartItemCardProps {
   id: number;
   name: string;
-  price: string;
+  price: number;
   imageUrl: string;
   quantity: number;
   handleQuantityChange: (id: number, quantity: number) => void;
@@ -24,7 +24,7 @@ const ProductCartItemCard = ({
       <Image source={{ uri: imageUrl }} style={styles.productImage} />
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{name}</Text>
-        <Text style={styles.productPrice}>{price}</Text>
+        <Text style={styles.productPrice}>${price}</Text>
         <View style={styles.quantityContainer}>
           <TouchableOpacity
             style={styles.quantityButton}

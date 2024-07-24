@@ -3,9 +3,11 @@ import { ScrollView, StyleSheet } from "react-native";
 import { ProductItemCard } from "../components/ProductItemCard";
 import { MyMealsScreenRouteProps } from "../types/RestaurantsScreensRouteProps";
 import AppBar from "@/shared/infrastructure/ui/components/AppBar";
-import { foodItems } from "@/database";
+import { restaurantItems } from "@/database";
 
-const MyMealsScreen = ({ navigation }: MyMealsScreenRouteProps) => {
+const MyMealsScreen = ({ navigation, route }: MyMealsScreenRouteProps) => {
+  const { restaurantId } = route.params;
+
   return (
     <BasicLayout>
       <AppBar
@@ -17,7 +19,7 @@ const MyMealsScreen = ({ navigation }: MyMealsScreenRouteProps) => {
         contentContainerStyle={styles.productsContainer}
         showsVerticalScrollIndicator={false}
       >
-        {foodItems.map((food) => (
+        {restaurantItems[restaurantId].meals.map((food) => (
           <ProductItemCard
             key={food.id}
             title={food.title}
